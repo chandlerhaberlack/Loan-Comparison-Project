@@ -144,6 +144,18 @@ export default function AttributeCell({ type, value, lender, rank, totalCount = 
           </div>
         );
       
+      case 'communityRating':
+        const rating = value || 0;
+        const ratingClass = rating >= 80 ? 'excellent' : rating >= 70 ? 'good' : rating >= 50 ? 'fair' : 'poor';
+        return (
+          <div className={`cell-content community ${ratingClass} ${isTop ? 'top' : isGood ? 'good' : ''}`}>
+            <div className="rating-bar-container">
+              <div className="rating-bar-fill" style={{ width: `${rating}%` }} />
+            </div>
+            <span className="value mono">{rating}</span>
+          </div>
+        );
+      
       default:
         return <span className="value">{String(value)}</span>;
     }

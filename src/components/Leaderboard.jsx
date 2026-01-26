@@ -1,10 +1,9 @@
 import { useState, useMemo, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { getLendersWithScores, attributeConfig, getAttributeRanks } from '../data/lenders';
+import { motion } from 'framer-motion';
+import { getLendersWithScores, attributeConfig, getAttributeRanks, custodyTypes } from '../data/lenders';
 import RankBadge from './RankBadge';
 import ScoreBadge from './ScoreBadge';
 import AttributeCell from './AttributeCell';
-import LenderDetails from './LenderDetails';
 import './Leaderboard.css';
 
 // Primary columns (always visible)
@@ -25,11 +24,20 @@ const secondaryColumns = [
   { key: 'usAvailable' },
   { key: 'earlyRepayment' },
   { key: 'liquidationThreshold' },
+  { key: 'communityRating' },
 ];
 
-export default function Leaderboard({ filters = {}, onOpenQuiz }) {
-  const [sortKey, setSortKey] = useState('compositeScore');
+export default function Leaderboard({ filters = {}, initialSortKey = 'compositeScore', onOpenQuiz }) {
+  const [sortKey, setSortKey] = useState(initialSortKey);
   const [sortAsc, setSortAsc] = useState(false);
+  
+  // Update sortKey when initialSortKey changes (from quiz)
+  useEffect(() => {
+    setSortKey(initialSortKey);
+    // Set ascending/descending based on attribute config
+    const config = attributeConfig[initialSortKey];
+    setSortAsc(config?.sortAsc ?? false);
+  }, [initialSortKey]);
   const [expandedRow, setExpandedRow] = useState(null);
   const [showAllColumns, setShowAllColumns] = useState(() => {
     // Check localStorage for saved preference
@@ -56,18 +64,44 @@ export default function Leaderboard({ filters = {}, onOpenQuiz }) {
   const filteredLenders = useMemo(() => {
     let result = [...allLenders];
     
+    // Custody type filter
     if (filters.custody && filters.custody !== 'all') {
       result = result.filter(l => l.custodyType === filters.custody);
     }
+    
+    // KYC filter
     if (filters.kyc === 'none') {
       result = result.filter(l => !l.kycRequired);
     } else if (filters.kyc === 'required') {
       result = result.filter(l => l.kycRequired);
     }
+    
+    // US availability filter
     if (filters.usAvailable === 'yes') {
       result = result.filter(l => l.usAvailable);
     } else if (filters.usAvailable === 'no') {
       result = result.filter(l => !l.usAvailable);
+    }
+    
+    // High trust institutions filter (community rating >= 75)
+    if (filters.highTrust) {
+      result = result.filter(l => (l.communityRating || 0) >= 75);
+    }
+    
+    // LTV filters
+    if (filters.ltvMin) {
+      result = result.filter(l => l.ltvMax >= filters.ltvMin);
+    }
+    if (filters.ltvMax) {
+      result = result.filter(l => l.ltvMax <= filters.ltvMax);
+    }
+    if (filters.ltvRange) {
+      result = result.filter(l => l.ltvMax >= filters.ltvRange.min && l.ltvMax <= filters.ltvRange.max);
+    }
+    
+    // Proof of reserves filter
+    if (filters.proofOfReserves) {
+      result = result.filter(l => l.hasProofOfReserves);
     }
     
     return result;
@@ -127,6 +161,60 @@ export default function Leaderboard({ filters = {}, onOpenQuiz }) {
     setExpandedRow(expandedRow === id ? null : id);
   };
 
+  const totalCols = 2 + columns.length; // Rank + Lender + Score + attribute columns
+
+  const renderInlineDetails = (lender) => {
+    const custody = custodyTypes[lender.custodyType];
+    return (
+      <div className="inline-details" onClick={(e) => e.stopPropagation()}>
+        <p className="inline-details-desc">{lender.description}</p>
+        <div className="inline-details-grid">
+          <div className="inline-details-section">
+            <h4>Pros</h4>
+            <ul>
+              {lender.pros.map((pro, i) => (
+                <li key={i}><span className="icon plus">+</span> {pro}</li>
+              ))}
+            </ul>
+          </div>
+          <div className="inline-details-section">
+            <h4>Cons</h4>
+            <ul>
+              {lender.cons.map((con, i) => (
+                <li key={i}><span className="icon minus">−</span> {con}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+        <div className="inline-details-meta">
+          <span className="custody-badge">{custody?.icon} {custody?.label}</span>
+          <span className="meta-item">
+            {lender.bitcoinHandling === 'native' ? '₿ Native' : '🔗 Wrapped'}
+          </span>
+          <span className="meta-item">
+            KYC {lender.kycRequired ? `(${lender.kycLevel})` : 'None'}
+          </span>
+          <span className="meta-item">
+            {lender.loanMin >= 1000 ? `$${(lender.loanMin / 1000).toFixed(0)}k` : `$${lender.loanMin}`} – ${(lender.loanMax / 1000000).toFixed(1)}M
+          </span>
+        </div>
+        <a
+          href={lender.website}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-details-visit"
+        >
+          Visit {lender.name}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+            <polyline points="15 3 21 3 21 9" />
+            <line x1="10" y1="14" x2="21" y2="3" />
+          </svg>
+        </a>
+      </div>
+    );
+  };
+
   return (
     <div className="leaderboard">
       <div className="leaderboard-controls">
@@ -176,9 +264,9 @@ export default function Leaderboard({ filters = {}, onOpenQuiz }) {
                     key={col.key}
                     className={`col-${col.key} sortable ${isActive ? 'active' : ''} ${!isPrimary ? 'secondary-col' : ''}`}
                     onClick={() => handleSort(col.key)}
-                    title={config?.description}
+                    title={config?.description ? `${config.description} — Click to sort.` : 'Click to sort.'}
                   >
-                    <span className="th-label">{config?.shortLabel || col.key}</span>
+                    <span className="th-label">{config?.label || col.key}</span>
                     <span className="sort-indicator">
                       {isActive ? (sortAsc ? '↑' : '↓') : '↕'}
                     </span>
@@ -188,12 +276,11 @@ export default function Leaderboard({ filters = {}, onOpenQuiz }) {
             </tr>
           </thead>
           <tbody>
-            {sortedLenders.map((lender, index) => {
+            {sortedLenders.flatMap((lender, index) => {
               const rank = index + 1;
               const isExpanded = expandedRow === lender.id;
-              
-              return (
-                <motion.tr 
+              const mainRow = (
+                <motion.tr
                   key={lender.id}
                   className={`lender-row ${isExpanded ? 'expanded' : ''} ${rank <= 3 ? 'top-three' : ''}`}
                   initial={{ opacity: 0 }}
@@ -211,7 +298,15 @@ export default function Leaderboard({ filters = {}, onOpenQuiz }) {
                         <span className="lender-name">{lender.name}</span>
                         <span className="lender-tagline">{lender.tagline}</span>
                       </div>
-                      <span className="expand-icon">{isExpanded ? '−' : '+'}</span>
+                      <button
+                        type="button"
+                        className={`expand-icon ${isExpanded ? 'expanded' : ''}`}
+                        onClick={(e) => { e.stopPropagation(); toggleExpand(lender.id); }}
+                        aria-expanded={isExpanded}
+                        aria-label={isExpanded ? 'Collapse details' : 'Expand details'}
+                      >
+                        {isExpanded ? '−' : '+'}
+                      </button>
                     </div>
                   </td>
                   <td className="col-score">
@@ -233,20 +328,25 @@ export default function Leaderboard({ filters = {}, onOpenQuiz }) {
                   })}
                 </motion.tr>
               );
+              const detailsRow = isExpanded ? (
+                <motion.tr
+                  key={`${lender.id}-details`}
+                  className="lender-details-row"
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <td className="col-details" colSpan={totalCols}>
+                    {renderInlineDetails(lender)}
+                  </td>
+                </motion.tr>
+              ) : null;
+              return [mainRow, detailsRow].filter(Boolean);
             })}
           </tbody>
         </table>
       </div>
-      
-      {/* Expanded Details Panel */}
-      <AnimatePresence>
-        {expandedRow && (
-          <LenderDetails 
-            lender={sortedLenders.find(l => l.id === expandedRow)}
-            onClose={() => setExpandedRow(null)}
-          />
-        )}
-      </AnimatePresence>
       
       {sortedLenders.length === 0 && (
         <div className="no-results">

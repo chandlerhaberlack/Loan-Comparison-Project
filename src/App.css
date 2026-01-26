@@ -51,6 +51,37 @@ main {
   color: var(--text-muted) !important;
 }
 
+.footer-branding {
+  margin-top: var(--space-lg);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--dark-border);
+}
+
+.tahoe-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: color 0.2s ease;
+}
+
+.tahoe-link:hover {
+  color: var(--btc-orange);
+}
+
+.tahoe-logo {
+  height: 24px;
+  width: auto;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+.tahoe-link:hover .tahoe-logo {
+  opacity: 1;
+}
+
 @media (max-width: 768px) {
   .leaderboard-section {
     padding: var(--space-md);

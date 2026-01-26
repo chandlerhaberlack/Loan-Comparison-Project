@@ -99,6 +99,13 @@ export default function LenderDetails({ lender, onClose }) {
                   {lender.usAvailable ? '🇺🇸 Yes' : 'No'}
                 </dd>
               </div>
+              <div className="detail-row">
+                <dt>Community Rating</dt>
+                <dd className={lender.communityRating >= 70 ? 'highlight' : ''}>
+                  {lender.communityRating || 'N/A'}/100
+                  <span className="rating-note"> (X sentiment)</span>
+                </dd>
+              </div>
             </dl>
           </div>
           

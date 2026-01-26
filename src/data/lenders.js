@@ -21,6 +21,7 @@ export const lenders = [
     custodyType: 'custodial',
     bitcoinHandling: 'native',
     hasProofOfReserves: true,
+    communityRating: 88,
     
     kycRequired: true,
     kycLevel: 'full',
@@ -57,6 +58,7 @@ export const lenders = [
     custodyType: 'collaborative',
     bitcoinHandling: 'native',
     hasProofOfReserves: true,
+    communityRating: 85,
     
     kycRequired: true,
     kycLevel: 'full',
@@ -93,6 +95,7 @@ export const lenders = [
     custodyType: 'custodial',
     bitcoinHandling: 'native',
     hasProofOfReserves: false,
+    communityRating: 55,
     
     kycRequired: true,
     kycLevel: 'full',
@@ -129,6 +132,7 @@ export const lenders = [
     custodyType: 'custodial',
     bitcoinHandling: 'native',
     hasProofOfReserves: true,
+    communityRating: 72,
     
     kycRequired: true,
     kycLevel: 'full',
@@ -165,6 +169,7 @@ export const lenders = [
     custodyType: 'non-custodial',
     bitcoinHandling: 'native',
     hasProofOfReserves: true,
+    communityRating: 75,
     
     kycRequired: false,
     kycLevel: 'none',
@@ -201,6 +206,7 @@ export const lenders = [
     custodyType: 'non-custodial',
     bitcoinHandling: 'native',
     hasProofOfReserves: true,
+    communityRating: 70,
     
     kycRequired: false,
     kycLevel: 'minimal',
@@ -237,6 +243,7 @@ export const lenders = [
     custodyType: 'custodial',
     bitcoinHandling: 'native',
     hasProofOfReserves: false,
+    communityRating: 80,
     
     kycRequired: true,
     kycLevel: 'full',
@@ -273,6 +280,7 @@ export const lenders = [
     custodyType: 'custodial',
     bitcoinHandling: 'native',
     hasProofOfReserves: true,
+    communityRating: 75,
     
     kycRequired: true,
     kycLevel: 'full',
@@ -309,8 +317,9 @@ export const lenders = [
     interestRateMax: 12,
     
     custodyType: 'custodial',
-    bitcoinHandling: 'native',
+    bitcoinHandling: 'wrapped',
     hasProofOfReserves: true,
+    communityRating: 82,
     
     kycRequired: true,
     kycLevel: 'full',
@@ -326,7 +335,7 @@ export const lenders = [
     earlyRepaymentFee: false,
     
     pros: ['Publicly traded company (NASDAQ)', 'Institutional-grade custody', 'US availability', 'Low minimum ($100)'],
-    cons: ['Limited to select US states', 'Conservative LTV (40%)', 'Custodial platform', 'Account required']
+    cons: ['Bitcoin is wrapped (cbBTC)', 'Limited to select US states', 'Conservative LTV (40%)', 'Custodial platform', 'Account required']
   },
   
   {
@@ -347,6 +356,7 @@ export const lenders = [
     custodyType: 'custodial',
     bitcoinHandling: 'native',
     hasProofOfReserves: false,
+    communityRating: 58,
     
     kycRequired: true,
     kycLevel: 'full',
@@ -383,6 +393,7 @@ export const lenders = [
     custodyType: 'custodial',
     bitcoinHandling: 'native',
     hasProofOfReserves: true,
+    communityRating: 65,
     
     kycRequired: true,
     kycLevel: 'full',
@@ -419,6 +430,7 @@ export const lenders = [
     custodyType: 'custodial',
     bitcoinHandling: 'native',
     hasProofOfReserves: false,
+    communityRating: 65,
     
     kycRequired: true,
     kycLevel: 'full',
@@ -455,6 +467,7 @@ export const lenders = [
     custodyType: 'custodial',
     bitcoinHandling: 'native',
     hasProofOfReserves: false,
+    communityRating: 50,
     
     kycRequired: true,
     kycLevel: 'full',
@@ -491,6 +504,7 @@ export const lenders = [
     custodyType: 'custodial',
     bitcoinHandling: 'native',
     hasProofOfReserves: true,
+    communityRating: 40,
     
     kycRequired: true,
     kycLevel: 'full',
@@ -527,6 +541,7 @@ export const lenders = [
     custodyType: 'custodial',
     bitcoinHandling: 'native',
     hasProofOfReserves: true,
+    communityRating: 45,
     
     kycRequired: true,
     kycLevel: 'full',
@@ -563,6 +578,7 @@ export const lenders = [
     custodyType: 'custodial',
     bitcoinHandling: 'native',
     hasProofOfReserves: false,
+    communityRating: 55,
     
     kycRequired: false,
     kycLevel: 'optional',
@@ -599,6 +615,7 @@ export const lenders = [
     custodyType: 'custodial',
     bitcoinHandling: 'native',
     hasProofOfReserves: false,
+    communityRating: 65,
     
     kycRequired: true,
     kycLevel: 'basic',
@@ -635,6 +652,7 @@ export const lenders = [
     custodyType: 'custodial',
     bitcoinHandling: 'native',
     hasProofOfReserves: true,
+    communityRating: 85,
     
     kycRequired: true,
     kycLevel: 'full',
@@ -671,6 +689,7 @@ export const lenders = [
     custodyType: 'non-custodial',
     bitcoinHandling: 'native',
     hasProofOfReserves: true,
+    communityRating: 65,
     
     kycRequired: false,
     kycLevel: 'minimal',
@@ -687,19 +706,56 @@ export const lenders = [
     
     pros: ['Non-custodial', 'No/minimal KYC', 'Global availability', 'Native Bitcoin'],
     cons: ['Newer platform', 'Smart contract risk', 'Lower max loan', 'Tech complexity']
+  },
+  
+  {
+    id: 'strike',
+    name: 'Strike',
+    logo: '⚡',
+    tagline: 'Bitcoin-Backed Loans Without Selling',
+    description: 'US-based platform offering Bitcoin-backed loans with competitive rates. Instant funding with no origination fees. Available in select US states.',
+    website: 'https://strike.me/lending',
+    
+    ltvMin: 0,
+    ltvMax: 50,
+    loanMin: 10000,
+    loanMax: 2000000,
+    interestRateMin: 9.5,
+    interestRateMax: 12,
+    
+    custodyType: 'custodial',
+    bitcoinHandling: 'native',
+    hasProofOfReserves: true,
+    communityRating: 88,
+    
+    kycRequired: true,
+    kycLevel: 'full',
+    
+    usAvailable: true,
+    availableRegions: ['United States (select states)'],
+    
+    loanDurations: ['12 months'],
+    liquidationThreshold: 75,
+    autoLiquidation: true,
+    canAddCollateral: true,
+    earlyRepayment: true,
+    earlyRepaymentFee: false,
+    
+    pros: ['No origination fees', 'Competitive interest rates', 'Instant funding', 'No credit check required', 'US available'],
+    cons: ['Limited to select US states', 'Custodial platform', 'Higher minimum ($10k)', 'Full KYC required']
   }
 ];
 
 // Scoring weights
 const WEIGHTS = {
-  interestRate: 0.25,    // Lower is better
-  ltvMax: 0.20,          // Higher is better
-  loanMin: 0.10,         // Lower is better
+  interestRate: 0.28,    // Lower is better (increased from 0.25)
+  ltvMax: 0.22,          // Higher is better (increased from 0.20)
   custodyType: 0.15,     // Non-custodial > Collaborative > Custodial
   kycRequired: 0.10,     // No KYC is better
   proofOfReserves: 0.10, // Yes is better
   nativeBtc: 0.05,       // Native is better
-  earlyRepayment: 0.05   // No fee is better
+  earlyRepayment: 0.05,  // No fee is better
+  communityRating: 0.05  // Higher is better (X sentiment)
 };
 
 // Apply generous curve to boost scores by ~15-20%
@@ -723,7 +779,7 @@ export function calculateCompositeScore(lender, allLenders) {
   // Get min/max values for normalization
   const rates = allLenders.map(l => l.interestRateMin);
   const ltvs = allLenders.map(l => l.ltvMax);
-  const mins = allLenders.map(l => l.loanMin);
+  const communityRatings = allLenders.map(l => l.communityRating || 50);
   
   let score = 0;
   
@@ -743,14 +799,6 @@ export function calculateCompositeScore(lender, allLenders) {
     true
   );
   
-  // Loan Minimum (lower is better)
-  score += WEIGHTS.loanMin * normalizeScore(
-    lender.loanMin,
-    Math.min(...mins),
-    Math.max(...mins),
-    false
-  );
-  
   // Custody Type (non-custodial = 100, collaborative = 70, custodial = 40)
   const custodyScores = { 'non-custodial': 100, 'collaborative': 70, 'custodial': 40 };
   score += WEIGHTS.custodyType * (custodyScores[lender.custodyType] || 40);
@@ -767,6 +815,14 @@ export function calculateCompositeScore(lender, allLenders) {
   // Early Repayment (no fee = 100, fee = 50, no = 0)
   const earlyScore = lender.earlyRepayment ? (lender.earlyRepaymentFee ? 50 : 100) : 0;
   score += WEIGHTS.earlyRepayment * earlyScore;
+  
+  // Community Rating (X sentiment) - higher is better
+  score += WEIGHTS.communityRating * normalizeScore(
+    lender.communityRating || 50,
+    Math.min(...communityRatings),
+    Math.max(...communityRatings),
+    true
+  );
   
   // Apply generous curve to boost scores
   return applyGenerousCurve(score);
@@ -901,6 +957,14 @@ export const attributeConfig = {
     format: (v) => v ? `${v}%` : 'N/A',
     sortAsc: false,
     description: 'LTV threshold for liquidation',
+    primary: false
+  },
+  communityRating: {
+    label: 'Community Rating',
+    shortLabel: 'Community',
+    format: (v) => v || 'N/A',
+    sortAsc: false,
+    description: 'X (Twitter) sentiment and community reputation score (1-100)',
     primary: false
   }
 };

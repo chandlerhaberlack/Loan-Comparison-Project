@@ -1,0 +1,39 @@
+<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="logoGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#67e8f9"/>
+      <stop offset="50%" stop-color="#22d3ee"/>
+      <stop offset="100%" stop-color="#0891b2"/>
+    </linearGradient>
+    <clipPath id="circleClip">
+      <circle cx="50" cy="50" r="47"/>
+    </clipPath>
+  </defs>
+  
+  <!-- Black background -->
+  <rect x="0" y="0" width="100" height="100" fill="#0a0a0a"/>
+  
+  <!-- Thin outer ring -->
+  <circle cx="50" cy="50" r="48" fill="none" stroke="#F7931A" stroke-width="1.5" opacity="0.5"/>
+  
+  <!-- Clipped content -->
+  <g clip-path="url(#circleClip)">
+    <!-- Subtle mountain silhouettes -->
+    <path d="M5 88 L5 72 L15 60 L22 67 L28 58 L35 65" fill="#374151" opacity="0.25"/>
+    <path d="M65 65 L72 56 L79 64 L86 57 L95 70 L95 88" fill="#374151" opacity="0.25"/>
+    
+    <!-- Subtle snow caps -->
+    <path d="M15 60 L12 66 L18 66 Z" fill="white" opacity="0.3"/>
+    <path d="M72 56 L69 63 L75 63 Z" fill="white" opacity="0.3"/>
+    
+    <!-- Lake Tahoe - centered (Option C) -->
+    <g transform="translate(12, 10) scale(0.76)">
+      <!-- Lake Tahoe shape -->
+      <path d="M 50 3 L 55 4 L 60 6 L 65 8 L 70 12 L 74 16 L 76 20 L 78 26 L 79 32 L 80 38 L 79 44 L 78 50 L 77 56 L 75 62 L 73 68 L 70 74 L 66 80 L 62 85 L 57 90 L 52 94 L 48 95 L 44 94 L 40 92 L 37 88 L 34 84 L 31 78 L 28 72 L 24 68 L 21 64 L 19 60 L 21 56 L 24 52 L 26 48 L 24 44 L 22 40 L 22 36 L 24 30 L 27 24 L 31 18 L 36 12 L 42 7 L 48 4 Z" fill="url(#logoGrad)"/>
+      <!-- Bitcoin circle -->
+      <circle cx="50" cy="48" r="22" fill="#F7931A"/>
+      <text x="50" y="58" text-anchor="middle" fill="white" font-size="26" font-weight="bold" font-family="Arial">₿</text>
+    </g>
+  </g>
+</svg>
+

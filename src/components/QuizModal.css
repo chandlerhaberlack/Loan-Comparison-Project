@@ -76,8 +76,15 @@
 .quiz-content h2 {
   font-size: 1.25rem;
   font-weight: 600;
-  margin-bottom: var(--space-xl);
+  margin-bottom: var(--space-md);
   text-align: center;
+}
+
+.multi-select-hint {
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-bottom: var(--space-lg);
 }
 
 .options {
@@ -147,6 +154,55 @@
   color: var(--btc-orange);
 }
 
+/* Multi-select checkbox */
+.checkbox {
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  border: 2px solid var(--dark-border);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  color: transparent;
+  transition: all var(--transition-fast);
+}
+
+.checkbox.checked {
+  background: var(--btc-orange);
+  border-color: var(--btc-orange);
+  color: white;
+}
+
+.option-btn.multi-select:hover .checkbox {
+  border-color: var(--btc-orange);
+}
+
+/* Multi-select continue button */
+.multi-select-actions {
+  margin-top: var(--space-lg);
+  display: flex;
+  justify-content: center;
+}
+
+.continue-btn {
+  padding: var(--space-sm) var(--space-xl);
+  background: var(--btc-orange);
+  border: none;
+  border-radius: var(--radius-md);
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.continue-btn:hover {
+  background: var(--btc-orange-hover);
+  transform: translateY(-1px);
+}
+
 .quiz-footer {
   display: flex;
   justify-content: space-between;
@@ -154,6 +210,19 @@
   padding: var(--space-md) var(--space-lg);
   border-top: 1px solid var(--dark-border);
   background: var(--dark-bg);
+}
+
+.footer-left,
+.footer-right {
+  min-width: 80px;
+}
+
+.footer-left {
+  text-align: left;
+}
+
+.footer-right {
+  text-align: right;
 }
 
 .back-btn {
@@ -168,6 +237,20 @@
 
 .back-btn:hover {
   color: var(--text-primary);
+}
+
+.skip-btn {
+  padding: var(--space-xs) var(--space-md);
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.skip-btn:hover {
+  color: var(--btc-orange);
 }
 
 .step-indicator {

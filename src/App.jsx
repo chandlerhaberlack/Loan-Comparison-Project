@@ -14,6 +14,7 @@ export default function App() {
     kyc: 'all',
     usAvailable: 'all'
   });
+  const [initialSortKey, setInitialSortKey] = useState('compositeScore');
   
   const handleFilterChange = (key, value) => {
     setFilters(prev => ({ ...prev, [key]: value }));
@@ -25,6 +26,7 @@ export default function App() {
       kyc: 'all',
       usAvailable: 'all'
     });
+    setInitialSortKey('compositeScore');
   };
   
   const handleQuizComplete = (result) => {
@@ -33,6 +35,11 @@ export default function App() {
       ...prev,
       ...result.filters
     }));
+    
+    // Apply sort key from quiz
+    if (result.sortKey) {
+      setInitialSortKey(result.sortKey);
+    }
     
     // Close modal
     setIsQuizOpen(false);
@@ -48,8 +55,8 @@ export default function App() {
       <main>
         <Hero 
           onOpenQuiz={() => setIsQuizOpen(true)}
-          lenderCount={18}
-          attributeCount={12}
+          lenderCount={19}
+          attributeCount={13}
         />
         
         <FilterBar 
@@ -62,6 +69,7 @@ export default function App() {
           <div className="container">
             <Leaderboard 
               filters={filters}
+              initialSortKey={initialSortKey}
               onOpenQuiz={() => setIsQuizOpen(true)}
             />
           </div>
@@ -77,6 +85,21 @@ export default function App() {
           <p className="footer-disclaimer">
             Data is for informational purposes only. Verify terms directly with lenders before borrowing.
           </p>
+          <div className="footer-branding">
+            <a 
+              href="https://tahoebtcstrategy.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="tahoe-link"
+            >
+              <img 
+                src="/logo-on-black.svg" 
+                alt="Tahoe BTC Strategy" 
+                className="tahoe-logo"
+              />
+              <span>Powered by Tahoe BTC Strategy</span>
+            </a>
+          </div>
         </div>
       </footer>
       
