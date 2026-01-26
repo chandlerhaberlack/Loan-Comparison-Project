@@ -226,6 +226,51 @@
   color: var(--error);
 }
 
+/* Year Founded cell */
+.cell-content.year-founded {
+  gap: var(--space-sm);
+}
+
+.cell-content.year-founded .years-label {
+  font-size: 0.6875rem;
+  color: var(--text-muted);
+  padding: 2px 4px;
+  background: var(--dark-elevated);
+  border-radius: var(--radius-sm);
+}
+
+.cell-content.year-founded.veteran .value {
+  color: var(--score-excellent);
+  font-weight: 600;
+}
+
+.cell-content.year-founded.established .value {
+  color: var(--score-good);
+}
+
+.cell-content.year-founded.newer .value {
+  color: var(--text-secondary);
+}
+
+/* AUM / Volume cell */
+.cell-content.aum.massive .value {
+  color: var(--score-excellent);
+  font-weight: 600;
+}
+
+.cell-content.aum.large .value {
+  color: var(--score-good);
+  font-weight: 500;
+}
+
+.cell-content.aum.medium .value {
+  color: var(--text-primary);
+}
+
+.cell-content.aum.small .value {
+  color: var(--text-secondary);
+}
+
 /* Responsive */
 @media (max-width: 1200px) {
   .cell-content .label {
@@ -237,6 +282,10 @@
   }
   
   .best-indicator {
+    display: none;
+  }
+  
+  .years-label {
     display: none;
   }
 }

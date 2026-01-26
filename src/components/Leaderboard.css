@@ -172,6 +172,8 @@ th.col-compositeScore { min-width: 6rem; }
 th.col-interestRateMin { min-width: 7rem; }
 th.col-ltvMax { min-width: 6rem; }
 th.col-custodyType { min-width: 6.5rem; }
+th.col-yearFounded { min-width: 6rem; }
+th.col-aumOrVolume { min-width: 6rem; }
 th.col-loanMin { min-width: 6rem; }
 th.col-loanMax { min-width: 6rem; }
 th.col-kycRequired { min-width: 6rem; }
@@ -197,9 +199,6 @@ tbody tr:hover {
   background: var(--table-row-hover);
 }
 
-tbody tr.expanded {
-  background: rgba(247, 147, 26, 0.08);
-}
 
 tbody tr.top-three {
   background: rgba(255, 215, 0, 0.03);
@@ -238,9 +237,6 @@ tbody tr:hover td.col-lender {
   background: #1E1C18;
 }
 
-tbody tr.expanded td.col-lender {
-  background: #211D18;
-}
 
 tbody tr.top-three td.col-lender {
   background: #1F1E18;
@@ -250,9 +246,6 @@ tbody tr.top-three:hover td.col-lender {
   background: #222018;
 }
 
-tbody tr.top-three.expanded td.col-lender {
-  background: #211D18;
-}
 
 td.secondary-col {
   background: rgba(247, 147, 26, 0.02);
@@ -324,129 +317,6 @@ button.expand-icon:hover {
   color: var(--dark-bg);
 }
 
-button.expand-icon.expanded {
-  background: var(--btc-orange);
-  color: var(--dark-bg);
-}
-
-/* Inline expanded details */
-.lender-details-row {
-  background: rgba(247, 147, 26, 0.06);
-  border-bottom: 1px solid var(--dark-border);
-  cursor: default;
-}
-
-.lender-details-row td {
-  padding: 0;
-  vertical-align: top;
-  border: none;
-}
-
-.col-details {
-  background: rgba(247, 147, 26, 0.06);
-}
-
-.inline-details {
-  padding: var(--space-lg) var(--space-xl);
-  text-align: left;
-}
-
-.inline-details-desc {
-  color: var(--text-secondary);
-  font-size: 0.875rem;
-  line-height: 1.5;
-  margin: 0 0 var(--space-md);
-}
-
-.inline-details-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-lg);
-  margin-bottom: var(--space-md);
-}
-
-.inline-details-section h4 {
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--text-muted);
-  margin: 0 0 var(--space-sm);
-}
-
-.inline-details-section ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.inline-details-section li {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-sm);
-  font-size: 0.8125rem;
-  color: var(--text-secondary);
-  margin-bottom: var(--space-xs);
-}
-
-.inline-details-section li .icon.plus {
-  color: var(--success);
-  font-weight: 700;
-  flex-shrink: 0;
-}
-
-.inline-details-section li .icon.minus {
-  color: var(--danger);
-  font-weight: 700;
-  flex-shrink: 0;
-}
-
-.inline-details-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-sm);
-  margin-bottom: var(--space-md);
-  font-size: 0.8125rem;
-  color: var(--text-muted);
-}
-
-.custody-badge {
-  color: var(--text-secondary);
-}
-
-.meta-item {
-  padding: 0 var(--space-xs);
-}
-
-.inline-details-visit {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-sm);
-  padding: var(--space-sm) var(--space-md);
-  background: var(--gradient-orange);
-  border-radius: var(--radius-md);
-  color: var(--dark-bg);
-  font-weight: 600;
-  font-size: 0.875rem;
-  text-decoration: none;
-  transition: box-shadow var(--transition-fast);
-}
-
-.inline-details-visit:hover {
-  color: var(--dark-bg);
-  box-shadow: var(--shadow-glow);
-}
-
-.inline-details-visit svg {
-  width: 14px;
-  height: 14px;
-}
-
-@media (max-width: 768px) {
-  .inline-details-grid {
-    grid-template-columns: 1fr;
-  }
-}
 
 /* No results */
 .no-results {
@@ -485,5 +355,40 @@ button.expand-icon.expanded {
   
   .expand-columns-btn {
     justify-content: center;
+  }
+  
+  /* Narrow lender column on mobile */
+  th.col-lender,
+  .col-lender {
+    min-width: 140px;
+    max-width: 140px;
+  }
+  
+  .lender-logo {
+    font-size: 1.2rem;
+  }
+  
+  .lender-name {
+    font-size: 0.8125rem;
+  }
+  
+  .lender-info {
+    gap: var(--space-sm);
+  }
+  
+  .expand-icon {
+    width: 20px;
+    height: 20px;
+    font-size: 0.875rem;
+  }
+  
+  /* Hide rank column on mobile for more space */
+  .col-rank {
+    display: none;
+  }
+  
+  /* Reduce min table width for mobile */
+  table {
+    min-width: 500px;
   }
 }

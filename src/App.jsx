@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import Header from './components/Header';
 import Hero from './components/Hero';
-import FilterBar from './components/FilterBar';
 import Leaderboard from './components/Leaderboard';
 import QuizModal from './components/QuizModal';
 import './App.css';
@@ -15,10 +14,6 @@ export default function App() {
     usAvailable: 'all'
   });
   const [initialSortKey, setInitialSortKey] = useState('compositeScore');
-  
-  const handleFilterChange = (key, value) => {
-    setFilters(prev => ({ ...prev, [key]: value }));
-  };
   
   const resetFilters = () => {
     setFilters({
@@ -56,13 +51,7 @@ export default function App() {
         <Hero 
           onOpenQuiz={() => setIsQuizOpen(true)}
           lenderCount={19}
-          attributeCount={13}
-        />
-        
-        <FilterBar 
-          filters={filters}
-          onFilterChange={handleFilterChange}
-          onReset={resetFilters}
+          attributeCount={15}
         />
         
         <section id="leaderboard" className="leaderboard-section">

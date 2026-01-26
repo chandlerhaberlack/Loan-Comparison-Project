@@ -156,6 +156,36 @@ export default function AttributeCell({ type, value, lender, rank, totalCount = 
           </div>
         );
       
+      case 'yearFounded':
+        const currentYear = new Date().getFullYear();
+        const yearsOld = value ? currentYear - value : null;
+        const experienceClass = yearsOld >= 8 ? 'veteran' : yearsOld >= 4 ? 'established' : 'newer';
+        return (
+          <div className={`cell-content year-founded ${experienceClass}`}>
+            <span className="value mono">{value || 'N/A'}</span>
+            {yearsOld !== null && <span className="years-label">{yearsOld}yr</span>}
+          </div>
+        );
+      
+      case 'aumOrVolume':
+        const formatAum = (v) => {
+          if (!v) return null;
+          if (v >= 1000000000) return `$${(v / 1000000000).toFixed(0)}B`;
+          if (v >= 1000000) return `$${(v / 1000000).toFixed(0)}M`;
+          return `$${(v / 1000).toFixed(0)}K`;
+        };
+        const formattedAum = formatAum(value);
+        const sizeClass = value >= 10000000000 ? 'massive' : value >= 1000000000 ? 'large' : value >= 100000000 ? 'medium' : 'small';
+        return (
+          <div className={`cell-content aum ${value ? sizeClass : ''}`}>
+            {formattedAum ? (
+              <span className="value mono">{formattedAum}</span>
+            ) : (
+              <span className="label muted">N/A</span>
+            )}
+          </div>
+        );
+      
       default:
         return <span className="value">{String(value)}</span>;
     }

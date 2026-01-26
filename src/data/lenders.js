@@ -11,6 +11,9 @@ export const lenders = [
     description: 'Canadian-based platform known for competitive rates and proof-of-reserves transparency. Popular choice for Bitcoin-backed loans.',
     website: 'https://ledn.io',
     
+    yearFounded: 2018,
+    aumOrVolume: 600000000, // ~$600M in loan volume
+    
     ltvMin: 0,
     ltvMax: 50,
     loanMin: 500,
@@ -47,6 +50,9 @@ export const lenders = [
     tagline: 'Collaborative Custody Bitcoin Loans',
     description: 'Pioneer in collaborative multisig custody. You maintain 2-of-3 keys, significantly reducing counterparty risk.',
     website: 'https://unchained.com',
+    
+    yearFounded: 2019,
+    aumOrVolume: 2000000000, // ~$2B+ AUM under collaborative custody
     
     ltvMin: 0,
     ltvMax: 40,
@@ -85,6 +91,9 @@ export const lenders = [
     description: 'One of the original crypto lending platforms, established in 2016. Offers flexible loan terms and multiple collateral options.',
     website: 'https://saltlending.com',
     
+    yearFounded: 2016,
+    aumOrVolume: 500000000, // ~$500M estimated loan volume
+    
     ltvMin: 30,
     ltvMax: 70,
     loanMin: 5000,
@@ -121,6 +130,9 @@ export const lenders = [
     tagline: 'Instant Crypto Credit Lines',
     description: 'Large crypto platform offering instant credit lines against your Bitcoin. No fixed terms, borrow and repay flexibly.',
     website: 'https://nexo.com',
+    
+    yearFounded: 2018,
+    aumOrVolume: 3000000000, // ~$3B+ in managed assets
     
     ltvMin: 0,
     ltvMax: 50,
@@ -159,6 +171,9 @@ export const lenders = [
     description: 'Peer-to-peer lending platform using multisig escrow. Non-custodial - your Bitcoin goes into 2-of-3 multisig, not a company wallet.',
     website: 'https://hodlhodl.com',
     
+    yearFounded: 2018,
+    aumOrVolume: 50000000, // ~$50M estimated P2P volume
+    
     ltvMin: 0,
     ltvMax: 70,
     loanMin: 100,
@@ -195,6 +210,9 @@ export const lenders = [
     tagline: 'DLC-Powered Non-Custodial Loans',
     description: 'Uses Discreet Log Contracts (DLCs) for trustless Bitcoin collateral. Cutting-edge technology for maximum sovereignty.',
     website: 'https://debifi.com',
+    
+    yearFounded: 2022,
+    aumOrVolume: null, // Undisclosed - newer platform
     
     ltvMin: 0,
     ltvMax: 50,
@@ -233,6 +251,9 @@ export const lenders = [
     description: 'Licensed Swiss private bank offering USD credit lines backed by Bitcoin. Full banking services with Bitcoin at the core.',
     website: 'https://xapobank.com',
     
+    yearFounded: 2014,
+    aumOrVolume: 1000000000, // ~$1B+ in AUM
+    
     ltvMin: 0,
     ltvMax: 40,
     loanMin: 10000,
@@ -269,6 +290,9 @@ export const lenders = [
     tagline: 'Modern Bitcoin-Backed Lending',
     description: 'Newer entrant focused on competitive rates and user experience. Transparent terms with no hidden fees.',
     website: 'https://arch.finance',
+    
+    yearFounded: 2023,
+    aumOrVolume: null, // Undisclosed - newer platform
     
     ltvMin: 0,
     ltvMax: 60,
@@ -309,6 +333,9 @@ export const lenders = [
     description: 'Major US-based exchange offering Bitcoin-backed loans to eligible users. Backed by a publicly traded company with institutional-grade custody.',
     website: 'https://coinbase.com',
     
+    yearFounded: 2012,
+    aumOrVolume: 130000000000, // ~$130B+ platform AUM
+    
     ltvMin: 0,
     ltvMax: 40,
     loanMin: 100,
@@ -345,6 +372,9 @@ export const lenders = [
     tagline: 'High LTV Crypto Loans',
     description: 'Swiss-based platform offering some of the highest LTV ratios in the industry. Known for aggressive loan terms and crypto-friendly features.',
     website: 'https://youhodler.com',
+    
+    yearFounded: 2018,
+    aumOrVolume: 200000000, // ~$200M estimated
     
     ltvMin: 50,
     ltvMax: 90,
@@ -383,6 +413,9 @@ export const lenders = [
     description: 'Estonian-licensed crypto lending platform. Regulated in the EU with focus on security and transparency.',
     website: 'https://coinloan.io',
     
+    yearFounded: 2017,
+    aumOrVolume: 150000000, // ~$150M estimated
+    
     ltvMin: 20,
     ltvMax: 70,
     loanMin: 100,
@@ -419,6 +452,9 @@ export const lenders = [
     tagline: 'Crypto-Backed Credit Line',
     description: 'UK-based fintech offering crypto credit lines. Combines traditional banking with crypto features, including a Mastercard debit card.',
     website: 'https://wirex.com',
+    
+    yearFounded: 2014,
+    aumOrVolume: 3000000000, // ~$3B+ transaction volume
     
     ltvMin: 0,
     ltvMax: 50,
@@ -457,6 +493,9 @@ export const lenders = [
     description: 'US-focused lender specializing in Bitcoin-backed mortgages and loans. One of the few offering real estate financing with crypto collateral.',
     website: 'https://milo.io',
     
+    yearFounded: 2021,
+    aumOrVolume: 250000000, // ~$250M estimated mortgage/loan volume
+    
     ltvMin: 0,
     ltvMax: 50,
     loanMin: 50000,
@@ -493,6 +532,9 @@ export const lenders = [
     tagline: 'Reformed Crypto Lending',
     description: 'Post-Celsius restructured lending platform focused on transparency and sustainable yields. Emerged from Celsius bankruptcy with reformed practices.',
     website: 'https://ionic.digital',
+    
+    yearFounded: 2023,
+    aumOrVolume: 2000000000, // ~$2B+ from Celsius restructuring
     
     ltvMin: 0,
     ltvMax: 45,
@@ -531,6 +573,9 @@ export const lenders = [
     description: 'Crypto loans from the world\'s largest exchange. Wide range of collateral options and competitive rates for high-volume traders.',
     website: 'https://binance.com',
     
+    yearFounded: 2017,
+    aumOrVolume: 50000000000, // ~$50B+ platform AUM
+    
     ltvMin: 0,
     ltvMax: 65,
     loanMin: 20,
@@ -567,6 +612,9 @@ export const lenders = [
     tagline: 'P2P Bitcoin Lending',
     description: 'Peer-to-peer Bitcoin lending platform. Match with individual lenders for customized loan terms. One of the OG P2P crypto lending platforms.',
     website: 'https://btcpop.co',
+    
+    yearFounded: 2014,
+    aumOrVolume: 10000000, // ~$10M estimated P2P volume
     
     ltvMin: 0,
     ltvMax: 60,
@@ -605,6 +653,9 @@ export const lenders = [
     description: 'Streamlined Bitcoin lending platform focused on simplicity. Quick approvals with straightforward terms for bitcoiners.',
     website: 'https://lendathodl.com',
     
+    yearFounded: 2022,
+    aumOrVolume: null, // Undisclosed - newer platform
+    
     ltvMin: 0,
     ltvMax: 50,
     loanMin: 500,
@@ -641,6 +692,9 @@ export const lenders = [
     tagline: 'Swiss Crypto Bank',
     description: 'FINMA-licensed Swiss crypto bank offering institutional-grade Bitcoin-backed credit. Premium service for high-net-worth individuals.',
     website: 'https://seba.swiss',
+    
+    yearFounded: 2018,
+    aumOrVolume: 1500000000, // ~$1.5B+ AUM
     
     ltvMin: 0,
     ltvMax: 50,
@@ -679,6 +733,9 @@ export const lenders = [
     description: 'Next-generation non-custodial Bitcoin lending using smart contracts. Keep your keys while accessing liquidity.',
     website: 'https://firefish.io',
     
+    yearFounded: 2023,
+    aumOrVolume: null, // Undisclosed - newer platform
+    
     ltvMin: 0,
     ltvMax: 50,
     loanMin: 200,
@@ -715,6 +772,9 @@ export const lenders = [
     tagline: 'Bitcoin-Backed Loans Without Selling',
     description: 'US-based platform offering Bitcoin-backed loans with competitive rates. Instant funding with no origination fees. Available in select US states.',
     website: 'https://strike.me/lending',
+    
+    yearFounded: 2020,
+    aumOrVolume: 500000000, // ~$500M+ estimated
     
     ltvMin: 0,
     ltvMax: 50,
@@ -965,6 +1025,27 @@ export const attributeConfig = {
     format: (v) => v || 'N/A',
     sortAsc: false,
     description: 'X (Twitter) sentiment and community reputation score (1-100)',
+    primary: false
+  },
+  yearFounded: {
+    label: 'Year Founded',
+    shortLabel: 'Founded',
+    format: (v) => v || 'N/A',
+    sortAsc: true,
+    description: 'Year the company was founded',
+    primary: false
+  },
+  aumOrVolume: {
+    label: 'AUM / Volume',
+    shortLabel: 'AUM',
+    format: (v) => {
+      if (!v) return 'N/A';
+      if (v >= 1000000000) return `$${(v / 1000000000).toFixed(0)}B`;
+      if (v >= 1000000) return `$${(v / 1000000).toFixed(0)}M`;
+      return `$${(v / 1000).toFixed(0)}K`;
+    },
+    sortAsc: false,
+    description: 'Assets under management or total loan volume',
     primary: false
   }
 };

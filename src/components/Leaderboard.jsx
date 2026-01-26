@@ -1,9 +1,10 @@
 import { useState, useMemo, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { getLendersWithScores, attributeConfig, getAttributeRanks, custodyTypes } from '../data/lenders';
 import RankBadge from './RankBadge';
 import ScoreBadge from './ScoreBadge';
 import AttributeCell from './AttributeCell';
+import LenderDetails from './LenderDetails';
 import './Leaderboard.css';
 
 // Primary columns (always visible)
@@ -16,6 +17,8 @@ const primaryColumns = [
 
 // Secondary columns (shown when expanded)
 const secondaryColumns = [
+  { key: 'yearFounded' },
+  { key: 'aumOrVolume' },
   { key: 'loanMin' },
   { key: 'loanMax' },
   { key: 'kycRequired' },
@@ -30,6 +33,7 @@ const secondaryColumns = [
 export default function Leaderboard({ filters = {}, initialSortKey = 'compositeScore', onOpenQuiz }) {
   const [sortKey, setSortKey] = useState(initialSortKey);
   const [sortAsc, setSortAsc] = useState(false);
+  const [selectedLender, setSelectedLender] = useState(null);
   
   // Update sortKey when initialSortKey changes (from quiz)
   useEffect(() => {
@@ -38,7 +42,6 @@ export default function Leaderboard({ filters = {}, initialSortKey = 'compositeS
     const config = attributeConfig[initialSortKey];
     setSortAsc(config?.sortAsc ?? false);
   }, [initialSortKey]);
-  const [expandedRow, setExpandedRow] = useState(null);
   const [showAllColumns, setShowAllColumns] = useState(() => {
     // Check localStorage for saved preference
     if (typeof window !== 'undefined') {
@@ -157,62 +160,15 @@ export default function Leaderboard({ filters = {}, initialSortKey = 'compositeS
     }
   };
   
-  const toggleExpand = (id) => {
-    setExpandedRow(expandedRow === id ? null : id);
+  const openLenderDetails = (lender) => {
+    setSelectedLender(lender);
+    // Prevent body scroll when modal is open
+    document.body.style.overflow = 'hidden';
   };
-
-  const totalCols = 2 + columns.length; // Rank + Lender + Score + attribute columns
-
-  const renderInlineDetails = (lender) => {
-    const custody = custodyTypes[lender.custodyType];
-    return (
-      <div className="inline-details" onClick={(e) => e.stopPropagation()}>
-        <p className="inline-details-desc">{lender.description}</p>
-        <div className="inline-details-grid">
-          <div className="inline-details-section">
-            <h4>Pros</h4>
-            <ul>
-              {lender.pros.map((pro, i) => (
-                <li key={i}><span className="icon plus">+</span> {pro}</li>
-              ))}
-            </ul>
-          </div>
-          <div className="inline-details-section">
-            <h4>Cons</h4>
-            <ul>
-              {lender.cons.map((con, i) => (
-                <li key={i}><span className="icon minus">−</span> {con}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-        <div className="inline-details-meta">
-          <span className="custody-badge">{custody?.icon} {custody?.label}</span>
-          <span className="meta-item">
-            {lender.bitcoinHandling === 'native' ? '₿ Native' : '🔗 Wrapped'}
-          </span>
-          <span className="meta-item">
-            KYC {lender.kycRequired ? `(${lender.kycLevel})` : 'None'}
-          </span>
-          <span className="meta-item">
-            {lender.loanMin >= 1000 ? `$${(lender.loanMin / 1000).toFixed(0)}k` : `$${lender.loanMin}`} – ${(lender.loanMax / 1000000).toFixed(1)}M
-          </span>
-        </div>
-        <a
-          href={lender.website}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-details-visit"
-        >
-          Visit {lender.name}
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-            <polyline points="15 3 21 3 21 9" />
-            <line x1="10" y1="14" x2="21" y2="3" />
-          </svg>
-        </a>
-      </div>
-    );
+  
+  const closeLenderDetails = () => {
+    setSelectedLender(null);
+    document.body.style.overflow = '';
   };
 
   return (
@@ -276,17 +232,16 @@ export default function Leaderboard({ filters = {}, initialSortKey = 'compositeS
             </tr>
           </thead>
           <tbody>
-            {sortedLenders.flatMap((lender, index) => {
+            {sortedLenders.map((lender, index) => {
               const rank = index + 1;
-              const isExpanded = expandedRow === lender.id;
-              const mainRow = (
+              return (
                 <motion.tr
                   key={lender.id}
-                  className={`lender-row ${isExpanded ? 'expanded' : ''} ${rank <= 3 ? 'top-three' : ''}`}
+                  className={`lender-row ${rank <= 3 ? 'top-three' : ''}`}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: index * 0.02 }}
-                  onClick={() => toggleExpand(lender.id)}
+                  onClick={() => openLenderDetails(lender)}
                 >
                   <td className="col-rank">
                     <RankBadge rank={rank} />
@@ -300,12 +255,11 @@ export default function Leaderboard({ filters = {}, initialSortKey = 'compositeS
                       </div>
                       <button
                         type="button"
-                        className={`expand-icon ${isExpanded ? 'expanded' : ''}`}
-                        onClick={(e) => { e.stopPropagation(); toggleExpand(lender.id); }}
-                        aria-expanded={isExpanded}
-                        aria-label={isExpanded ? 'Collapse details' : 'Expand details'}
+                        className="expand-icon"
+                        onClick={(e) => { e.stopPropagation(); openLenderDetails(lender); }}
+                        aria-label="View details"
                       >
-                        {isExpanded ? '−' : '+'}
+                        +
                       </button>
                     </div>
                   </td>
@@ -328,21 +282,6 @@ export default function Leaderboard({ filters = {}, initialSortKey = 'compositeS
                   })}
                 </motion.tr>
               );
-              const detailsRow = isExpanded ? (
-                <motion.tr
-                  key={`${lender.id}-details`}
-                  className="lender-details-row"
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <td className="col-details" colSpan={totalCols}>
-                    {renderInlineDetails(lender)}
-                  </td>
-                </motion.tr>
-              ) : null;
-              return [mainRow, detailsRow].filter(Boolean);
             })}
           </tbody>
         </table>
@@ -354,6 +293,15 @@ export default function Leaderboard({ filters = {}, initialSortKey = 'compositeS
           <button onClick={() => window.location.reload()}>Reset Filters</button>
         </div>
       )}
+      
+      <AnimatePresence>
+        {selectedLender && (
+          <LenderDetails
+            lender={selectedLender}
+            onClose={closeLenderDetails}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }
