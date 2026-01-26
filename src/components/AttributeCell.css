@@ -1,0 +1,189 @@
+.attribute-cell {
+  padding: var(--space-md);
+  vertical-align: middle;
+}
+
+.cell-content {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.cell-content .value {
+  font-size: 0.875rem;
+  color: var(--text-primary);
+}
+
+.cell-content .label {
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+}
+
+.cell-content .label.muted {
+  color: var(--text-muted);
+}
+
+.cell-content .icon {
+  font-size: 0.875rem;
+}
+
+.cell-content .icon.success {
+  color: var(--success);
+}
+
+.cell-content .icon.warning {
+  color: var(--warning);
+}
+
+.cell-content .icon.muted {
+  opacity: 0.5;
+}
+
+/* Rate cell */
+.cell-content.rate.top .value {
+  color: var(--score-excellent);
+  font-weight: 600;
+}
+
+.cell-content.rate.good .value {
+  color: var(--score-good);
+}
+
+.best-indicator {
+  font-size: 0.625rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px 6px;
+  background: var(--success-bg);
+  color: var(--success);
+  border-radius: var(--radius-sm);
+  margin-left: var(--space-xs);
+}
+
+/* LTV cell with bar */
+.cell-content.ltv {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.bar-container {
+  width: 60px;
+  height: 4px;
+  background: var(--dark-elevated);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  background: var(--dark-border-light);
+  border-radius: var(--radius-full);
+  transition: width var(--transition-base);
+}
+
+.cell-content.ltv.top .bar-fill {
+  background: var(--score-excellent);
+}
+
+.cell-content.ltv.good .bar-fill {
+  background: var(--score-good);
+}
+
+.cell-content.ltv.top .value {
+  color: var(--score-excellent);
+  font-weight: 600;
+}
+
+/* Loan cell */
+.cell-content.loan.top .value {
+  color: var(--score-excellent);
+  font-weight: 600;
+}
+
+/* Custody cell */
+.cell-content.custody {
+  gap: var(--space-sm);
+}
+
+.custody-icon {
+  font-size: 1rem;
+}
+
+.custody-label {
+  font-size: 0.8125rem;
+}
+
+.cell-content.custody.non-custodial .custody-label {
+  color: var(--success);
+  font-weight: 500;
+}
+
+.cell-content.custody.collaborative .custody-label {
+  color: var(--btc-orange);
+  font-weight: 500;
+}
+
+.cell-content.custody.custodial .custody-label {
+  color: var(--text-secondary);
+}
+
+/* KYC cell */
+.cell-content.kyc.no-kyc {
+  color: var(--success);
+}
+
+.cell-content.kyc.no-kyc .label {
+  color: var(--success);
+  font-weight: 500;
+}
+
+/* Proof of Reserves cell */
+.cell-content.por.has-por .label {
+  color: var(--success);
+  font-weight: 500;
+}
+
+/* BTC handling cell */
+.btc-icon {
+  color: var(--btc-orange);
+  font-weight: 700;
+}
+
+.cell-content.btc.native .label {
+  color: var(--btc-orange);
+  font-weight: 500;
+}
+
+/* US Available cell */
+.flag {
+  font-size: 1rem;
+}
+
+.cell-content.us.available .label {
+  color: var(--success);
+  font-weight: 500;
+}
+
+/* Early repayment cell */
+.cell-content.early.free .label {
+  color: var(--success);
+  font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .cell-content .label {
+    display: none;
+  }
+  
+  .custody-label {
+    display: none !important;
+  }
+  
+  .best-indicator {
+    display: none;
+  }
+}
+
