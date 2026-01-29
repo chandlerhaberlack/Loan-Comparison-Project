@@ -271,6 +271,45 @@
   color: var(--text-secondary);
 }
 
+/* Term Flexibility cell */
+.cell-content.term-flex.open .value {
+  color: var(--score-excellent);
+  font-weight: 600;
+}
+
+.cell-content.term-flex.renewable .value {
+  color: var(--score-good);
+  font-weight: 500;
+}
+
+.cell-content.term-flex.fixed .value {
+  color: var(--text-secondary);
+}
+
+/* Large Loan Ease cell (1M+) */
+.cell-content.large-loan.excellent .value {
+  color: var(--score-excellent);
+  font-weight: 600;
+}
+
+.cell-content.large-loan.good .value {
+  color: var(--score-good);
+  font-weight: 500;
+}
+
+.cell-content.large-loan.fair .value {
+  color: var(--text-secondary);
+}
+
+.cell-content.large-loan.poor .value {
+  color: var(--error);
+}
+
+.cell-content.large-loan.not-available .value {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
 /* Responsive */
 @media (max-width: 1200px) {
   .cell-content .label {

@@ -1,4 +1,4 @@
-import { custodyTypes } from '../data/lenders';
+import { custodyTypes, COMMUNITY_TIER_LABELS, TERM_FLEXIBILITY_LABELS, LARGE_LOAN_EASE_LABELS } from '../data/lenders';
 import './AttributeCell.css';
 
 export default function AttributeCell({ type, value, lender, rank, totalCount = 18, className = '' }) {
@@ -145,14 +145,12 @@ export default function AttributeCell({ type, value, lender, rank, totalCount = 
         );
       
       case 'communityRating':
-        const rating = value || 0;
-        const ratingClass = rating >= 80 ? 'excellent' : rating >= 70 ? 'good' : rating >= 50 ? 'fair' : 'poor';
+        const tier = value && typeof value === 'string' ? value : null;
+        const tierClass = tier || 'fair';
+        const tierLabel = tier && COMMUNITY_TIER_LABELS[tier] ? COMMUNITY_TIER_LABELS[tier] : 'N/A';
         return (
-          <div className={`cell-content community ${ratingClass} ${isTop ? 'top' : isGood ? 'good' : ''}`}>
-            <div className="rating-bar-container">
-              <div className="rating-bar-fill" style={{ width: `${rating}%` }} />
-            </div>
-            <span className="value mono">{rating}</span>
+          <div className={`cell-content community ${tierClass} ${isTop ? 'top' : isGood ? 'good' : ''}`}>
+            <span className="value">{tierLabel}</span>
           </div>
         );
       
@@ -183,6 +181,23 @@ export default function AttributeCell({ type, value, lender, rank, totalCount = 
             ) : (
               <span className="label muted">N/A</span>
             )}
+          </div>
+        );
+      
+      case 'termFlexibility':
+        const termFlexLabel = TERM_FLEXIBILITY_LABELS[value] || 'N/A';
+        return (
+          <div className={`cell-content term-flex ${value || ''}`}>
+            <span className="value">{termFlexLabel}</span>
+          </div>
+        );
+      
+      case 'largeLoanEase':
+        const largeLoanLabel = LARGE_LOAN_EASE_LABELS[value] || 'N/A';
+        const largeLoanClass = value === 'na' ? 'not-available' : value || '';
+        return (
+          <div className={`cell-content large-loan ${largeLoanClass}`}>
+            <span className="value">{largeLoanLabel}</span>
           </div>
         );
       

@@ -8,6 +8,80 @@ main {
   flex: 1;
 }
 
+/* About Section */
+.about-section {
+  padding: var(--space-xl) var(--space-lg);
+  background: var(--dark-surface);
+  border-bottom: 1px solid var(--dark-border);
+}
+
+.about-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-xl);
+}
+
+.about-text {
+  flex: 1;
+}
+
+.about-text h2 {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-md);
+}
+
+.about-text p {
+  color: var(--text-secondary);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  margin-bottom: var(--space-sm);
+}
+
+.about-text a {
+  color: var(--btc-orange);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.about-text a:hover {
+  text-decoration: underline;
+}
+
+.about-disclaimer {
+  font-size: 0.8125rem !important;
+  color: var(--text-muted) !important;
+}
+
+.about-logo-link {
+  flex-shrink: 0;
+}
+
+.about-logo {
+  height: 48px;
+  width: auto;
+  opacity: 0.9;
+  transition: opacity 0.2s ease;
+}
+
+.about-logo-link:hover .about-logo {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .about-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .about-logo {
+    height: 40px;
+  }
+}
+
 .leaderboard-section {
   padding: var(--space-xl) var(--space-lg);
   padding-bottom: var(--space-3xl);

@@ -1,6 +1,7 @@
 // Bitcoin-Backed Loan Providers Data
-// Last updated: January 2026
+// Last updated: January 28, 2026
 // Note: Verify all terms directly with lenders before borrowing
+// Rates audited: Coinbase (5%), Ledn (10.4-13.4%), SALT (8.95-14.45%), Arch (8.49-14%), Strike (9.5-13%)
 
 export const lenders = [
   {
@@ -8,7 +9,7 @@ export const lenders = [
     name: 'Ledn',
     logo: '🔷',
     tagline: 'Transparent Bitcoin Financial Services',
-    description: 'Canadian-based platform known for competitive rates and proof-of-reserves transparency. Popular choice for Bitcoin-backed loans.',
+    description: 'Platform known for competitive rates and proof-of-reserves transparency. Popular choice for Bitcoin-backed loans with US availability.',
     website: 'https://ledn.io',
     
     yearFounded: 2018,
@@ -18,26 +19,28 @@ export const lenders = [
     ltvMax: 50,
     loanMin: 500,
     loanMax: 2000000,
-    interestRateMin: 12.4,
-    interestRateMax: 13.9,
+    interestRateMin: 10.4,
+    interestRateMax: 13.4,
     
     custodyType: 'custodial',
     bitcoinHandling: 'native',
     hasProofOfReserves: true,
-    communityRating: 88,
+    communityRating: 'excellent',
     
     kycRequired: true,
     kycLevel: 'full',
     
-    usAvailable: false,
-    availableRegions: ['Global (excl. US in some states)'],
+    usAvailable: true,
+    availableRegions: ['United States', 'Global'],
     
     loanDurations: ['12 months', 'Open-ended'],
+    termFlexibility: 'open', // Auto-renewal if LTV ≤65%
     liquidationThreshold: 80,
     autoLiquidation: true,
     canAddCollateral: true,
     earlyRepayment: true,
     earlyRepaymentFee: false,
+    largeLoanEase: 'good', // $2M max, straightforward single loan process
     
     pros: ['Proof of reserves audits', 'Competitive interest rates', 'No early repayment penalties', 'Native BTC (no wrapping)'],
     cons: ['Custodial - they hold your keys', 'Full KYC required', 'Limited US availability']
@@ -64,7 +67,7 @@ export const lenders = [
     custodyType: 'collaborative',
     bitcoinHandling: 'native',
     hasProofOfReserves: true,
-    communityRating: 85,
+    communityRating: 'excellent',
     
     kycRequired: true,
     kycLevel: 'full',
@@ -73,11 +76,13 @@ export const lenders = [
     availableRegions: ['United States'],
     
     loanDurations: ['12 months'],
+    termFlexibility: 'fixed',
     liquidationThreshold: 70,
     autoLiquidation: false,
     canAddCollateral: true,
     earlyRepayment: true,
     earlyRepaymentFee: false,
+    largeLoanEase: 'excellent', // $10M max, designed for high-net-worth individuals, dedicated support
     
     pros: ['Collaborative custody (you hold 2 keys)', 'No rehypothecation of your Bitcoin', 'Established US-based company', 'IRA options available'],
     cons: ['Higher minimum loan ($10k)', 'US only', 'Lower LTV ratio', 'Slightly higher rates']
@@ -98,13 +103,13 @@ export const lenders = [
     ltvMax: 70,
     loanMin: 5000,
     loanMax: 100000000,
-    interestRateMin: 7.95,
-    interestRateMax: 14.95,
+    interestRateMin: 9.95,
+    interestRateMax: 14.45,
     
     custodyType: 'custodial',
     bitcoinHandling: 'native',
     hasProofOfReserves: false,
-    communityRating: 55,
+    communityRating: 'fair',
     
     kycRequired: true,
     kycLevel: 'full',
@@ -113,11 +118,13 @@ export const lenders = [
     availableRegions: ['Global'],
     
     loanDurations: ['3 months', '6 months', '12 months', '24 months'],
+    termFlexibility: 'fixed',
     liquidationThreshold: 90,
     autoLiquidation: true,
     canAddCollateral: true,
     earlyRepayment: true,
     earlyRepaymentFee: true,
+    largeLoanEase: 'excellent', // $100M max, institutional-grade infrastructure for large borrowers
     
     pros: ['Established track record since 2016', 'High LTV options up to 70%', 'Flexible loan durations', 'Large maximum loan amounts'],
     cons: ['Custodial platform', 'Early repayment fees', 'No proof of reserves', 'Higher LTV means higher liquidation risk']
@@ -128,7 +135,7 @@ export const lenders = [
     name: 'Nexo',
     logo: '🌐',
     tagline: 'Instant Crypto Credit Lines',
-    description: 'Large crypto platform offering instant credit lines against your Bitcoin. No fixed terms, borrow and repay flexibly.',
+    description: 'Large crypto platform offering instant credit lines against your Bitcoin. Advertised low rates (2.9%) require holding NEXO tokens; actual rates up to 18.9% without token holdings.',
     website: 'https://nexo.com',
     
     yearFounded: 2018,
@@ -138,13 +145,13 @@ export const lenders = [
     ltvMax: 50,
     loanMin: 50,
     loanMax: 2000000,
-    interestRateMin: 2.9,
-    interestRateMax: 13.9,
+    interestRateMin: 13.9,
+    interestRateMax: 18.9,
     
     custodyType: 'custodial',
     bitcoinHandling: 'native',
     hasProofOfReserves: true,
-    communityRating: 72,
+    communityRating: 'good',
     
     kycRequired: true,
     kycLevel: 'full',
@@ -153,22 +160,24 @@ export const lenders = [
     availableRegions: ['Global (excl. US)'],
     
     loanDurations: ['Open-ended'],
+    termFlexibility: 'open',
     liquidationThreshold: 83.3,
     autoLiquidation: true,
     canAddCollateral: true,
     earlyRepayment: true,
     earlyRepaymentFee: false,
+    largeLoanEase: 'good', // $2M max, instant credit line makes it easy up to limits
     
-    pros: ['Very low minimum ($50)', 'Instant credit line', 'Flexible repayment', 'Lower rates with NEXO token'],
-    cons: ['Not available in US', 'Custodial platform', 'Best rates require NEXO token holdings', 'Complex tier system']
+    pros: ['Very low minimum ($50)', 'Instant credit line', 'Flexible repayment', 'No fixed terms'],
+    cons: ['Not available in US', 'Custodial platform', 'Advertised low rates require buying NEXO tokens', 'Actual rates 13.9-18.9% without tokens']
   },
   
   {
     id: 'hodlhodl',
     name: 'Hodl Hodl',
     logo: '🤝',
-    tagline: 'P2P Non-Custodial Loans',
-    description: 'Peer-to-peer lending platform using multisig escrow. Non-custodial - your Bitcoin goes into 2-of-3 multisig, not a company wallet.',
+    tagline: 'P2P Collaborative Custody Loans',
+    description: 'Peer-to-peer lending platform using multisig escrow. Your Bitcoin goes into 2-of-3 multisig with collaborative custody.',
     website: 'https://hodlhodl.com',
     
     yearFounded: 2018,
@@ -178,13 +187,13 @@ export const lenders = [
     ltvMax: 70,
     loanMin: 100,
     loanMax: 1000000,
-    interestRateMin: 8,
+    interestRateMin: 11,
     interestRateMax: 20,
     
-    custodyType: 'non-custodial',
+    custodyType: 'collaborative',
     bitcoinHandling: 'native',
     hasProofOfReserves: true,
-    communityRating: 75,
+    communityRating: 'good',
     
     kycRequired: false,
     kycLevel: 'none',
@@ -192,12 +201,14 @@ export const lenders = [
     usAvailable: true,
     availableRegions: ['Global'],
     
-    loanDurations: ['Flexible (P2P negotiated)'],
+    loanDurations: ['Up to 12 months'],
+    termFlexibility: 'fixed',
     liquidationThreshold: 0,
     autoLiquidation: false,
     canAddCollateral: true,
     earlyRepayment: true,
     earlyRepaymentFee: false,
+    largeLoanEase: 'poor', // P2P model requires multiple counterparties for large loans, $1M max but very difficult
     
     pros: ['Non-custodial (multisig escrow)', 'No KYC required', 'P2P - negotiate your terms', 'Global availability'],
     cons: ['Rates vary by lender', 'Less liquidity than centralized', 'Requires finding a counterparty', 'More complex process']
@@ -207,8 +218,8 @@ export const lenders = [
     id: 'debifi',
     name: 'Debifi',
     logo: '⚡',
-    tagline: 'DLC-Powered Non-Custodial Loans',
-    description: 'Uses Discreet Log Contracts (DLCs) for trustless Bitcoin collateral. Cutting-edge technology for maximum sovereignty.',
+    tagline: 'DLC-Powered Collaborative Custody Loans',
+    description: 'Uses Discreet Log Contracts (DLCs) for trustless Bitcoin collateral. Collaborative custody via DLC smart contracts.',
     website: 'https://debifi.com',
     
     yearFounded: 2022,
@@ -221,10 +232,10 @@ export const lenders = [
     interestRateMin: 10,
     interestRateMax: 18,
     
-    custodyType: 'non-custodial',
+    custodyType: 'collaborative',
     bitcoinHandling: 'native',
     hasProofOfReserves: true,
-    communityRating: 70,
+    communityRating: 'good',
     
     kycRequired: false,
     kycLevel: 'minimal',
@@ -233,11 +244,13 @@ export const lenders = [
     availableRegions: ['Global'],
     
     loanDurations: ['3 months', '6 months', '12 months'],
+    termFlexibility: 'fixed',
     liquidationThreshold: 75,
     autoLiquidation: true,
     canAddCollateral: false,
     earlyRepayment: true,
     earlyRepaymentFee: false,
+    largeLoanEase: 'na', // $500k max - cannot do $1M+ loans
     
     pros: ['True non-custodial via DLCs', 'No KYC or minimal KYC', 'Trustless Bitcoin-native tech', 'No counterparty risk'],
     cons: ['Newer platform', 'Cannot add collateral mid-loan', 'Limited loan amounts', 'DLC tech still maturing']
@@ -264,7 +277,7 @@ export const lenders = [
     custodyType: 'custodial',
     bitcoinHandling: 'native',
     hasProofOfReserves: false,
-    communityRating: 80,
+    communityRating: 'excellent',
     
     kycRequired: true,
     kycLevel: 'full',
@@ -272,12 +285,14 @@ export const lenders = [
     usAvailable: false,
     availableRegions: ['Global (excl. US)'],
     
-    loanDurations: ['Open-ended'],
+    loanDurations: ['30-365 days'],
+    termFlexibility: 'renewable', // Can extend + upsizing
     liquidationThreshold: 65,
     autoLiquidation: true,
     canAddCollateral: true,
     earlyRepayment: true,
     earlyRepaymentFee: false,
+    largeLoanEase: 'fair', // $1M max, Swiss private bank but limited to $1M ceiling
     
     pros: ['Swiss banking license & regulation', 'Full banking services', 'Professional custody standards', 'USD bank account included'],
     cons: ['High minimums ($10k)', 'Membership/account fees', 'Not available in US', 'Conservative LTV']
@@ -285,11 +300,11 @@ export const lenders = [
   
   {
     id: 'arch',
-    name: 'Arch',
+    name: 'Arch Lending',
     logo: '🏛️',
     tagline: 'Modern Bitcoin-Backed Lending',
     description: 'Newer entrant focused on competitive rates and user experience. Transparent terms with no hidden fees.',
-    website: 'https://arch.finance',
+    website: 'https://archlending.com',
     
     yearFounded: 2023,
     aumOrVolume: null, // Undisclosed - newer platform
@@ -298,13 +313,13 @@ export const lenders = [
     ltvMax: 60,
     loanMin: 1000,
     loanMax: 5000000,
-    interestRateMin: 9.5,
-    interestRateMax: 15,
+    interestRateMin: 11.49,
+    interestRateMax: 14,
     
     custodyType: 'custodial',
     bitcoinHandling: 'native',
     hasProofOfReserves: true,
-    communityRating: 75,
+    communityRating: 'good',
     
     kycRequired: true,
     kycLevel: 'full',
@@ -313,11 +328,13 @@ export const lenders = [
     availableRegions: ['United States', 'Select countries'],
     
     loanDurations: ['6 months', '12 months', '24 months'],
+    termFlexibility: 'renewable', // Rollover in last 3 months + Perpetual Income option
     liquidationThreshold: 85,
     autoLiquidation: true,
     canAddCollateral: true,
     earlyRepayment: true,
     earlyRepaymentFee: false,
+    largeLoanEase: 'good', // $5M max, straightforward process for large loans
     
     pros: ['Competitive rates', 'US availability', 'Good LTV ratio (60%)', 'No early repayment fees'],
     cons: ['Newer platform', 'Custodial', 'Full KYC required', 'Still building track record']
@@ -340,13 +357,13 @@ export const lenders = [
     ltvMax: 40,
     loanMin: 100,
     loanMax: 1000000,
-    interestRateMin: 8,
+    interestRateMin: 5,
     interestRateMax: 12,
     
     custodyType: 'custodial',
     bitcoinHandling: 'wrapped',
     hasProofOfReserves: true,
-    communityRating: 82,
+    communityRating: 'excellent',
     
     kycRequired: true,
     kycLevel: 'full',
@@ -355,134 +372,16 @@ export const lenders = [
     availableRegions: ['United States (select states)'],
     
     loanDurations: ['Open-ended'],
+    termFlexibility: 'open',
     liquidationThreshold: 70,
     autoLiquidation: true,
     canAddCollateral: true,
     earlyRepayment: true,
     earlyRepaymentFee: false,
+    largeLoanEase: 'excellent', // Institutional platform with strong support for large loans
     
-    pros: ['Publicly traded company (NASDAQ)', 'Institutional-grade custody', 'US availability', 'Low minimum ($100)'],
-    cons: ['Bitcoin is wrapped (cbBTC)', 'Limited to select US states', 'Conservative LTV (40%)', 'Custodial platform', 'Account required']
-  },
-  
-  {
-    id: 'youhodler',
-    name: 'YouHodler',
-    logo: '💰',
-    tagline: 'High LTV Crypto Loans',
-    description: 'Swiss-based platform offering some of the highest LTV ratios in the industry. Known for aggressive loan terms and crypto-friendly features.',
-    website: 'https://youhodler.com',
-    
-    yearFounded: 2018,
-    aumOrVolume: 200000000, // ~$200M estimated
-    
-    ltvMin: 50,
-    ltvMax: 90,
-    loanMin: 100,
-    loanMax: 1500000,
-    interestRateMin: 12,
-    interestRateMax: 26,
-    
-    custodyType: 'custodial',
-    bitcoinHandling: 'native',
-    hasProofOfReserves: false,
-    communityRating: 58,
-    
-    kycRequired: true,
-    kycLevel: 'full',
-    
-    usAvailable: false,
-    availableRegions: ['EU', 'UK', 'Global (excl. US)'],
-    
-    loanDurations: ['30 days', '60 days', '90 days'],
-    liquidationThreshold: 95,
-    autoLiquidation: true,
-    canAddCollateral: true,
-    earlyRepayment: true,
-    earlyRepaymentFee: false,
-    
-    pros: ['Highest LTV in industry (up to 90%)', 'Low minimum ($100)', 'Fast loan approval', 'Multiple fiat currencies'],
-    cons: ['Not available in US', 'High interest rates', 'High liquidation risk at 90% LTV', 'No proof of reserves']
-  },
-  
-  {
-    id: 'coinloan',
-    name: 'CoinLoan',
-    logo: '🪙',
-    tagline: 'European Crypto Lending',
-    description: 'Estonian-licensed crypto lending platform. Regulated in the EU with focus on security and transparency.',
-    website: 'https://coinloan.io',
-    
-    yearFounded: 2017,
-    aumOrVolume: 150000000, // ~$150M estimated
-    
-    ltvMin: 20,
-    ltvMax: 70,
-    loanMin: 100,
-    loanMax: 500000,
-    interestRateMin: 9.9,
-    interestRateMax: 16,
-    
-    custodyType: 'custodial',
-    bitcoinHandling: 'native',
-    hasProofOfReserves: true,
-    communityRating: 65,
-    
-    kycRequired: true,
-    kycLevel: 'full',
-    
-    usAvailable: false,
-    availableRegions: ['EU', 'Global (excl. US)'],
-    
-    loanDurations: ['1 month', '3 months', '6 months', '12 months'],
-    liquidationThreshold: 85,
-    autoLiquidation: true,
-    canAddCollateral: true,
-    earlyRepayment: true,
-    earlyRepaymentFee: false,
-    
-    pros: ['EU regulated (Estonian license)', 'Proof of reserves', 'Flexible LTV options', 'Multiple loan durations'],
-    cons: ['Not available in US', 'Custodial only', 'Full KYC required', 'European focus']
-  },
-  
-  {
-    id: 'wirex',
-    name: 'Wirex',
-    logo: '🔶',
-    tagline: 'Crypto-Backed Credit Line',
-    description: 'UK-based fintech offering crypto credit lines. Combines traditional banking with crypto features, including a Mastercard debit card.',
-    website: 'https://wirex.com',
-    
-    yearFounded: 2014,
-    aumOrVolume: 3000000000, // ~$3B+ transaction volume
-    
-    ltvMin: 0,
-    ltvMax: 50,
-    loanMin: 50,
-    loanMax: 200000,
-    interestRateMin: 11,
-    interestRateMax: 18,
-    
-    custodyType: 'custodial',
-    bitcoinHandling: 'native',
-    hasProofOfReserves: false,
-    communityRating: 65,
-    
-    kycRequired: true,
-    kycLevel: 'full',
-    
-    usAvailable: false,
-    availableRegions: ['UK', 'EU', 'APAC'],
-    
-    loanDurations: ['Open-ended'],
-    liquidationThreshold: 75,
-    autoLiquidation: true,
-    canAddCollateral: true,
-    earlyRepayment: true,
-    earlyRepaymentFee: false,
-    
-    pros: ['Integrated debit card', 'UK/EU regulated', 'Low minimum ($50)', 'All-in-one platform'],
-    cons: ['Not available in US', 'No proof of reserves', 'Lower max loan ($200k)', 'Higher rates']
+    pros: ['Publicly traded company (NASDAQ)', 'Institutional-grade custody', 'US availability', 'Low minimum ($100)', 'Rates as low as 5% APY'],
+    cons: ['Bitcoin is converted to cbBTC (wrapped)', 'Limited to select US states', 'Conservative LTV (40%)', 'Custodial platform', 'Variable rates based on market conditions']
   },
   
   {
@@ -506,7 +405,7 @@ export const lenders = [
     custodyType: 'custodial',
     bitcoinHandling: 'native',
     hasProofOfReserves: false,
-    communityRating: 50,
+    communityRating: 'fair',
     
     kycRequired: true,
     kycLevel: 'full',
@@ -515,134 +414,16 @@ export const lenders = [
     availableRegions: ['United States'],
     
     loanDurations: ['12 months', '24 months', '30 years (mortgage)'],
+    termFlexibility: 'fixed',
     liquidationThreshold: 75,
     autoLiquidation: true,
     canAddCollateral: true,
     earlyRepayment: true,
     earlyRepaymentFee: false,
+    largeLoanEase: 'good', // $5M max, designed for large mortgage-style loans
     
     pros: ['Bitcoin mortgages available', 'US focused', 'Large loan amounts', 'Long-term options'],
     cons: ['High minimum ($50k)', 'Custodial', 'Full KYC required', 'Limited to US']
-  },
-  
-  {
-    id: 'celsius-successor',
-    name: 'Ionic Digital',
-    logo: '❄️',
-    tagline: 'Reformed Crypto Lending',
-    description: 'Post-Celsius restructured lending platform focused on transparency and sustainable yields. Emerged from Celsius bankruptcy with reformed practices.',
-    website: 'https://ionic.digital',
-    
-    yearFounded: 2023,
-    aumOrVolume: 2000000000, // ~$2B+ from Celsius restructuring
-    
-    ltvMin: 0,
-    ltvMax: 45,
-    loanMin: 1000,
-    loanMax: 500000,
-    interestRateMin: 11,
-    interestRateMax: 15,
-    
-    custodyType: 'custodial',
-    bitcoinHandling: 'native',
-    hasProofOfReserves: true,
-    communityRating: 40,
-    
-    kycRequired: true,
-    kycLevel: 'full',
-    
-    usAvailable: false,
-    availableRegions: ['Select jurisdictions'],
-    
-    loanDurations: ['6 months', '12 months'],
-    liquidationThreshold: 75,
-    autoLiquidation: true,
-    canAddCollateral: true,
-    earlyRepayment: true,
-    earlyRepaymentFee: false,
-    
-    pros: ['Reformed with transparency focus', 'Proof of reserves', 'Conservative approach', 'Regulated structure'],
-    cons: ['Limited availability', 'Lower LTV due to caution', 'Newer entity', 'Reputation concerns from predecessor']
-  },
-  
-  {
-    id: 'binance',
-    name: 'Binance Loans',
-    logo: '🟡',
-    tagline: 'World\'s Largest Exchange Loans',
-    description: 'Crypto loans from the world\'s largest exchange. Wide range of collateral options and competitive rates for high-volume traders.',
-    website: 'https://binance.com',
-    
-    yearFounded: 2017,
-    aumOrVolume: 50000000000, // ~$50B+ platform AUM
-    
-    ltvMin: 0,
-    ltvMax: 65,
-    loanMin: 20,
-    loanMax: 10000000,
-    interestRateMin: 5.5,
-    interestRateMax: 12,
-    
-    custodyType: 'custodial',
-    bitcoinHandling: 'native',
-    hasProofOfReserves: true,
-    communityRating: 45,
-    
-    kycRequired: true,
-    kycLevel: 'full',
-    
-    usAvailable: false,
-    availableRegions: ['Global (excl. US)'],
-    
-    loanDurations: ['7 days', '14 days', '30 days', '90 days', '180 days'],
-    liquidationThreshold: 83,
-    autoLiquidation: true,
-    canAddCollateral: true,
-    earlyRepayment: true,
-    earlyRepaymentFee: false,
-    
-    pros: ['Very low minimum ($20)', 'Competitive rates', 'Massive liquidity', 'Proof of reserves'],
-    cons: ['Not available in US', 'Custodial', 'Regulatory uncertainty', 'Complex tiered system']
-  },
-  
-  {
-    id: 'btcpop',
-    name: 'BTCPOP',
-    logo: '🎈',
-    tagline: 'P2P Bitcoin Lending',
-    description: 'Peer-to-peer Bitcoin lending platform. Match with individual lenders for customized loan terms. One of the OG P2P crypto lending platforms.',
-    website: 'https://btcpop.co',
-    
-    yearFounded: 2014,
-    aumOrVolume: 10000000, // ~$10M estimated P2P volume
-    
-    ltvMin: 0,
-    ltvMax: 60,
-    loanMin: 50,
-    loanMax: 100000,
-    interestRateMin: 10,
-    interestRateMax: 30,
-    
-    custodyType: 'custodial',
-    bitcoinHandling: 'native',
-    hasProofOfReserves: false,
-    communityRating: 55,
-    
-    kycRequired: false,
-    kycLevel: 'optional',
-    
-    usAvailable: true,
-    availableRegions: ['Global'],
-    
-    loanDurations: ['Flexible (P2P negotiated)'],
-    liquidationThreshold: 80,
-    autoLiquidation: true,
-    canAddCollateral: true,
-    earlyRepayment: true,
-    earlyRepaymentFee: false,
-    
-    pros: ['No KYC required', 'P2P flexibility', 'Global availability', 'Low minimum'],
-    cons: ['Variable rates', 'Smaller liquidity', 'Less regulatory oversight', 'Counterparty risk']
   },
   
   {
@@ -666,7 +447,7 @@ export const lenders = [
     custodyType: 'custodial',
     bitcoinHandling: 'native',
     hasProofOfReserves: false,
-    communityRating: 65,
+    communityRating: 'good',
     
     kycRequired: true,
     kycLevel: 'basic',
@@ -675,62 +456,24 @@ export const lenders = [
     availableRegions: ['US', 'Canada', 'EU'],
     
     loanDurations: ['6 months', '12 months'],
+    termFlexibility: 'fixed',
     liquidationThreshold: 75,
     autoLiquidation: true,
     canAddCollateral: true,
     earlyRepayment: true,
     earlyRepaymentFee: false,
+    largeLoanEase: 'na', // $250k max - cannot do $1M+ loans
     
     pros: ['Simple application', 'Quick approval', 'Basic KYC only', 'US available'],
     cons: ['Smaller max loan', 'Custodial', 'No proof of reserves', 'Newer platform']
   },
   
   {
-    id: 'seba',
-    name: 'SEBA Bank',
-    logo: '🏛️',
-    tagline: 'Swiss Crypto Bank',
-    description: 'FINMA-licensed Swiss crypto bank offering institutional-grade Bitcoin-backed credit. Premium service for high-net-worth individuals.',
-    website: 'https://seba.swiss',
-    
-    yearFounded: 2018,
-    aumOrVolume: 1500000000, // ~$1.5B+ AUM
-    
-    ltvMin: 0,
-    ltvMax: 50,
-    loanMin: 100000,
-    loanMax: 50000000,
-    interestRateMin: 6,
-    interestRateMax: 10,
-    
-    custodyType: 'custodial',
-    bitcoinHandling: 'native',
-    hasProofOfReserves: true,
-    communityRating: 85,
-    
-    kycRequired: true,
-    kycLevel: 'full',
-    
-    usAvailable: false,
-    availableRegions: ['Switzerland', 'Singapore', 'Hong Kong'],
-    
-    loanDurations: ['12 months', '24 months', 'Custom'],
-    liquidationThreshold: 70,
-    autoLiquidation: true,
-    canAddCollateral: true,
-    earlyRepayment: true,
-    earlyRepaymentFee: false,
-    
-    pros: ['Swiss banking license (FINMA)', 'Institutional grade', 'Low interest rates', 'Very high max loan'],
-    cons: ['Very high minimum ($100k)', 'Not available in US', 'Premium/exclusive service', 'Complex onboarding']
-  },
-  
-  {
     id: 'firefish',
     name: 'Firefish',
     logo: '🐟',
-    tagline: 'Non-Custodial Bitcoin Loans',
-    description: 'Next-generation non-custodial Bitcoin lending using smart contracts. Keep your keys while accessing liquidity.',
+    tagline: 'Collaborative Custody Bitcoin Loans',
+    description: 'Next-generation Bitcoin lending using smart contracts with collaborative custody. Access liquidity while maintaining shared control.',
     website: 'https://firefish.io',
     
     yearFounded: 2023,
@@ -743,10 +486,10 @@ export const lenders = [
     interestRateMin: 9,
     interestRateMax: 15,
     
-    custodyType: 'non-custodial',
+    custodyType: 'collaborative',
     bitcoinHandling: 'native',
     hasProofOfReserves: true,
-    communityRating: 65,
+    communityRating: 'good',
     
     kycRequired: false,
     kycLevel: 'minimal',
@@ -755,11 +498,13 @@ export const lenders = [
     availableRegions: ['Global'],
     
     loanDurations: ['3 months', '6 months', '12 months'],
+    termFlexibility: 'renewable', // Explicit rollover feature
     liquidationThreshold: 75,
     autoLiquidation: true,
     canAddCollateral: true,
     earlyRepayment: true,
     earlyRepaymentFee: false,
+    largeLoanEase: 'fair', // Smaller max but can work with larger amounts through multiple loans
     
     pros: ['Non-custodial', 'No/minimal KYC', 'Global availability', 'Native Bitcoin'],
     cons: ['Newer platform', 'Smart contract risk', 'Lower max loan', 'Tech complexity']
@@ -781,12 +526,12 @@ export const lenders = [
     loanMin: 10000,
     loanMax: 2000000,
     interestRateMin: 9.5,
-    interestRateMax: 12,
+    interestRateMax: 13,
     
     custodyType: 'custodial',
     bitcoinHandling: 'native',
     hasProofOfReserves: true,
-    communityRating: 88,
+    communityRating: 'excellent',
     
     kycRequired: true,
     kycLevel: 'full',
@@ -795,11 +540,13 @@ export const lenders = [
     availableRegions: ['United States (select states)'],
     
     loanDurations: ['12 months'],
+    termFlexibility: 'renewable', // Can close and reopen with no fees
     liquidationThreshold: 75,
     autoLiquidation: true,
     canAddCollateral: true,
     earlyRepayment: true,
     earlyRepaymentFee: false,
+    largeLoanEase: 'good', // $2M max, streamlined process for large loans
     
     pros: ['No origination fees', 'Competitive interest rates', 'Instant funding', 'No credit check required', 'US available'],
     cons: ['Limited to select US states', 'Custodial platform', 'Higher minimum ($10k)', 'Full KYC required']
@@ -808,18 +555,37 @@ export const lenders = [
 
 // Scoring weights
 const WEIGHTS = {
-  interestRate: 0.28,    // Lower is better (increased from 0.25)
-  ltvMax: 0.22,          // Higher is better (increased from 0.20)
-  custodyType: 0.15,     // Non-custodial > Collaborative > Custodial
-  kycRequired: 0.10,     // No KYC is better
+  interestRate: 0.25,    // Lower is better
+  ltvMax: 0.12,          // Higher is better
+  custodyType: 0.10,     // Non-custodial > Collaborative > Custodial
   proofOfReserves: 0.10, // Yes is better
   nativeBtc: 0.05,       // Native is better
   earlyRepayment: 0.05,  // No fee is better
-  communityRating: 0.05  // Higher is better (X sentiment)
+  communityRating: 0.10, // Community/reputation tier (Excellent > Good > Fair > Poor)
+  termFlexibility: 0.15, // Open-ended > Renewable > Fixed
+  largeLoanEase: 0.08    // Ease of getting $1M+ loans (Excellent > Good > Fair > Poor)
 };
+
+// Community rating tiers (display order: Excellent > Good > Fair > Poor)
+export const COMMUNITY_TIER_ORDER = ['excellent', 'good', 'fair', 'poor'];
+export const COMMUNITY_TIER_LABELS = { excellent: 'Excellent', good: 'Good', fair: 'Fair', poor: 'Poor' };
+const COMMUNITY_TIER_SCORES = { excellent: 100, good: 75, fair: 50, poor: 25 };
+
+// Term flexibility tiers
+export const TERM_FLEXIBILITY_LABELS = { open: 'Open-ended', renewable: 'Renewable', fixed: 'Fixed' };
+const TERM_FLEXIBILITY_SCORES = { open: 100, renewable: 70, fixed: 40 };
+
+// Large loan ease tiers (ability to easily get $1M+ loans)
+export const LARGE_LOAN_EASE_LABELS = { excellent: 'Excellent', good: 'Good', fair: 'Fair', poor: 'Poor', na: 'N/A' };
+const LARGE_LOAN_EASE_ORDER = { excellent: 1, good: 2, fair: 3, poor: 4, na: 5 };
+const LARGE_LOAN_EASE_SCORES = { excellent: 100, good: 75, fair: 50, poor: 25, na: 0 };
 
 // Apply generous curve to boost scores by ~15-20%
 function applyGenerousCurve(score) {
+  // Safety check for NaN or undefined
+  if (isNaN(score) || score === undefined || score === null) {
+    return 50; // Default score
+  }
   // Power curve: score^0.85 * 100 gives ~15-20% boost on average
   // Also add a small baseline boost of 8 points
   const curved = Math.pow(score / 100, 0.85) * 100;
@@ -829,9 +595,12 @@ function applyGenerousCurve(score) {
 
 // Calculate normalized score (0-100) for each attribute
 function normalizeScore(value, min, max, higherIsBetter = true) {
+  // Safety checks
+  if (value === undefined || value === null || isNaN(value)) return 50;
   if (max === min) return 50;
   const normalized = (value - min) / (max - min);
-  return higherIsBetter ? normalized * 100 : (1 - normalized) * 100;
+  const result = higherIsBetter ? normalized * 100 : (1 - normalized) * 100;
+  return isNaN(result) ? 50 : result;
 }
 
 // Calculate composite score for a lender
@@ -839,7 +608,6 @@ export function calculateCompositeScore(lender, allLenders) {
   // Get min/max values for normalization
   const rates = allLenders.map(l => l.interestRateMin);
   const ltvs = allLenders.map(l => l.ltvMax);
-  const communityRatings = allLenders.map(l => l.communityRating || 50);
   
   let score = 0;
   
@@ -863,9 +631,6 @@ export function calculateCompositeScore(lender, allLenders) {
   const custodyScores = { 'non-custodial': 100, 'collaborative': 70, 'custodial': 40 };
   score += WEIGHTS.custodyType * (custodyScores[lender.custodyType] || 40);
   
-  // KYC Required (no = 100, yes = 0)
-  score += WEIGHTS.kycRequired * (lender.kycRequired ? 0 : 100);
-  
   // Proof of Reserves (yes = 100, no = 0)
   score += WEIGHTS.proofOfReserves * (lender.hasProofOfReserves ? 100 : 0);
   
@@ -876,13 +641,14 @@ export function calculateCompositeScore(lender, allLenders) {
   const earlyScore = lender.earlyRepayment ? (lender.earlyRepaymentFee ? 50 : 100) : 0;
   score += WEIGHTS.earlyRepayment * earlyScore;
   
-  // Community Rating (X sentiment) - higher is better
-  score += WEIGHTS.communityRating * normalizeScore(
-    lender.communityRating || 50,
-    Math.min(...communityRatings),
-    Math.max(...communityRatings),
-    true
-  );
+  // Community Rating tier (excellent=100, good=75, fair=50, poor=25)
+  score += WEIGHTS.communityRating * (COMMUNITY_TIER_SCORES[lender.communityRating] ?? 50);
+  
+  // Term Flexibility (open=100, renewable=70, fixed=40)
+  score += WEIGHTS.termFlexibility * (TERM_FLEXIBILITY_SCORES[lender.termFlexibility] ?? 40);
+  
+  // Large Loan Ease (excellent=100, good=75, fair=50, poor=25, na=0)
+  score += WEIGHTS.largeLoanEase * (LARGE_LOAN_EASE_SCORES[lender.largeLoanEase] ?? 0);
   
   // Apply generous curve to boost scores
   return applyGenerousCurve(score);
@@ -898,15 +664,34 @@ export function getLendersWithScores() {
 
 // Get rank for a specific attribute (returns object with lenderId: rank)
 export function getAttributeRanks(attribute, ascending = true) {
+  const communityOrder = { excellent: 1, good: 2, fair: 3, poor: 4 };
+  const termFlexOrder = { open: 1, renewable: 2, fixed: 3 };
+  const largeLoanOrder = { excellent: 1, good: 2, fair: 3, poor: 4, na: 5 };
+  
   const sorted = [...lenders].sort((a, b) => {
     const aVal = a[attribute];
     const bVal = b[attribute];
     if (typeof aVal === 'boolean') {
       return ascending ? (aVal ? -1 : 1) : (aVal ? 1 : -1);
     }
+    if (attribute === 'communityRating' && typeof aVal === 'string') {
+      const aOrd = communityOrder[aVal] ?? 5;
+      const bOrd = communityOrder[bVal] ?? 5;
+      return ascending ? aOrd - bOrd : bOrd - aOrd;
+    }
+    if (attribute === 'largeLoanEase' && typeof aVal === 'string') {
+      const aOrd = largeLoanOrder[aVal] ?? 6;
+      const bOrd = largeLoanOrder[bVal] ?? 6;
+      return ascending ? aOrd - bOrd : bOrd - aOrd;
+    }
+    if (attribute === 'termFlexibility' && typeof aVal === 'string') {
+      const aOrd = termFlexOrder[aVal] ?? 4;
+      const bOrd = termFlexOrder[bVal] ?? 4;
+      return ascending ? aOrd - bOrd : bOrd - aOrd;
+    }
     if (typeof aVal === 'string') {
       const order = { 'non-custodial': 1, 'collaborative': 2, 'custodial': 3 };
-      return ascending ? order[aVal] - order[bVal] : order[bVal] - order[aVal];
+      return ascending ? (order[aVal] ?? 4) - (order[bVal] ?? 4) : (order[bVal] ?? 4) - (order[aVal] ?? 4);
     }
     return ascending ? aVal - bVal : bVal - aVal;
   });
@@ -1022,9 +807,9 @@ export const attributeConfig = {
   communityRating: {
     label: 'Community Rating',
     shortLabel: 'Community',
-    format: (v) => v || 'N/A',
+    format: (v) => (v && COMMUNITY_TIER_LABELS[v]) ? COMMUNITY_TIER_LABELS[v] : 'N/A',
     sortAsc: false,
-    description: 'X (Twitter) sentiment and community reputation score (1-100)',
+    description: 'Community and reputation tier: Excellent, Good, Fair, or Poor',
     primary: false
   },
   yearFounded: {
@@ -1046,6 +831,22 @@ export const attributeConfig = {
     },
     sortAsc: false,
     description: 'Assets under management or total loan volume',
+    primary: false
+  },
+  termFlexibility: {
+    label: 'Term Flexibility',
+    shortLabel: 'Term',
+    format: (v) => TERM_FLEXIBILITY_LABELS[v] || 'N/A',
+    sortAsc: true,
+    description: 'Open-ended: No fixed term, pay when ready (variable rate). Renewable: Can roll over at maturity. Fixed: Must refinance to continue.',
+    primary: false
+  },
+  largeLoanEase: {
+    label: 'Large Loan (1M+)',
+    shortLabel: '1M+ Ease',
+    format: (v) => LARGE_LOAN_EASE_LABELS[v] || 'N/A',
+    sortAsc: true,
+    description: 'How easy it is to get a large loan ($1M+). Excellent: Simple single-loan process with high limits. Good: Straightforward for $1M+. Fair: Possible but limited. Poor: Very difficult (e.g., P2P requires multiple counterparties). N/A: Max loan under $1M.',
     primary: false
   }
 };

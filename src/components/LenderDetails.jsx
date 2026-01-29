@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { custodyTypes } from '../data/lenders';
+import { custodyTypes, COMMUNITY_TIER_LABELS } from '../data/lenders';
 import './LenderDetails.css';
 
 export default function LenderDetails({ lender, onClose }) {
@@ -151,8 +151,10 @@ export default function LenderDetails({ lender, onClose }) {
                 </div>
                 <div className="detail-row">
                   <dt>Community</dt>
-                  <dd className={lender.communityRating >= 70 ? 'highlight' : ''}>
-                    {lender.communityRating || 'N/A'}/100
+                  <dd className={lender.communityRating === 'excellent' || lender.communityRating === 'good' ? 'highlight' : ''}>
+                    {lender.communityRating && COMMUNITY_TIER_LABELS[lender.communityRating]
+                      ? COMMUNITY_TIER_LABELS[lender.communityRating]
+                      : 'N/A'}
                   </dd>
                 </div>
               </dl>

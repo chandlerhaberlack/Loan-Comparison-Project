@@ -5,7 +5,42 @@ import RankBadge from './RankBadge';
 import ScoreBadge from './ScoreBadge';
 import AttributeCell from './AttributeCell';
 import LenderDetails from './LenderDetails';
+import ColumnFilter from './ColumnFilter';
 import './Leaderboard.css';
+
+// Filter options for specific columns
+const columnFilterOptions = {
+  custodyType: [
+    { value: 'all', label: 'All Types' },
+    { value: 'non-custodial', label: 'Non-Custodial' },
+    { value: 'collaborative', label: 'Collaborative' },
+    { value: 'custodial', label: 'Custodial' },
+  ],
+  usAvailable: [
+    { value: 'all', label: 'All Regions' },
+    { value: 'yes', label: 'US Available' },
+    { value: 'no', label: 'Non-US Only' },
+  ],
+  bitcoinHandling: [
+    { value: 'all', label: 'All Types' },
+    { value: 'native', label: 'Native BTC' },
+    { value: 'wrapped', label: 'Wrapped BTC' },
+  ],
+  termFlexibility: [
+    { value: 'all', label: 'All' },
+    { value: 'open', label: 'Open-ended' },
+    { value: 'renewable', label: 'Renewable' },
+    { value: 'fixed', label: 'Fixed' },
+  ],
+  largeLoanEase: [
+    { value: 'all', label: 'All' },
+    { value: 'excellent', label: 'Excellent' },
+    { value: 'good', label: 'Good' },
+    { value: 'fair', label: 'Fair' },
+    { value: 'poor', label: 'Poor' },
+    { value: 'na', label: 'N/A (<$1M)' },
+  ],
+};
 
 // Primary columns (always visible)
 const primaryColumns = [
@@ -17,6 +52,8 @@ const primaryColumns = [
 
 // Secondary columns (shown when expanded)
 const secondaryColumns = [
+  { key: 'termFlexibility' },
+  { key: 'largeLoanEase' },
   { key: 'yearFounded' },
   { key: 'aumOrVolume' },
   { key: 'loanMin' },
@@ -34,6 +71,15 @@ export default function Leaderboard({ filters = {}, initialSortKey = 'compositeS
   const [sortKey, setSortKey] = useState(initialSortKey);
   const [sortAsc, setSortAsc] = useState(false);
   const [selectedLender, setSelectedLender] = useState(null);
+  
+  // Local column filters (separate from prop filters)
+  const [columnFilters, setColumnFilters] = useState({
+    custodyType: 'all',
+    usAvailable: 'all',
+    bitcoinHandling: 'all',
+    termFlexibility: 'all',
+    largeLoanEase: 'all',
+  });
   
   // Update sortKey when initialSortKey changes (from quiz)
   useEffect(() => {
@@ -63,13 +109,23 @@ export default function Leaderboard({ filters = {}, initialSortKey = 'compositeS
     return showAllColumns ? [...primaryColumns, ...secondaryColumns] : primaryColumns;
   }, [showAllColumns]);
   
+  // Handle column filter change
+  const handleColumnFilterChange = (column, value) => {
+    setColumnFilters(prev => ({ ...prev, [column]: value }));
+  };
+  
   // Apply filters
   const filteredLenders = useMemo(() => {
     let result = [...allLenders];
     
-    // Custody type filter
+    // Custody type filter (from props)
     if (filters.custody && filters.custody !== 'all') {
       result = result.filter(l => l.custodyType === filters.custody);
+    }
+    
+    // Column-level custody filter
+    if (columnFilters.custodyType !== 'all') {
+      result = result.filter(l => l.custodyType === columnFilters.custodyType);
     }
     
     // KYC filter
@@ -79,16 +135,38 @@ export default function Leaderboard({ filters = {}, initialSortKey = 'compositeS
       result = result.filter(l => l.kycRequired);
     }
     
-    // US availability filter
+    // US availability filter (from props)
     if (filters.usAvailable === 'yes') {
       result = result.filter(l => l.usAvailable);
     } else if (filters.usAvailable === 'no') {
       result = result.filter(l => !l.usAvailable);
     }
     
+    // Column-level US availability filter
+    if (columnFilters.usAvailable === 'yes') {
+      result = result.filter(l => l.usAvailable);
+    } else if (columnFilters.usAvailable === 'no') {
+      result = result.filter(l => !l.usAvailable);
+    }
+    
+    // Column-level Bitcoin handling filter
+    if (columnFilters.bitcoinHandling !== 'all') {
+      result = result.filter(l => l.bitcoinHandling === columnFilters.bitcoinHandling);
+    }
+    
+    // Column-level term flexibility filter
+    if (columnFilters.termFlexibility !== 'all') {
+      result = result.filter(l => l.termFlexibility === columnFilters.termFlexibility);
+    }
+    
+    // Column-level large loan ease filter
+    if (columnFilters.largeLoanEase !== 'all') {
+      result = result.filter(l => l.largeLoanEase === columnFilters.largeLoanEase);
+    }
+    
     // High trust institutions filter (community rating >= 75)
     if (filters.highTrust) {
-      result = result.filter(l => (l.communityRating || 0) >= 75);
+      result = result.filter(l => l.communityRating === 'excellent' || l.communityRating === 'good');
     }
     
     // LTV filters
@@ -108,7 +186,7 @@ export default function Leaderboard({ filters = {}, initialSortKey = 'compositeS
     }
     
     return result;
-  }, [allLenders, filters]);
+  }, [allLenders, filters, columnFilters]);
   
   // Sort lenders
   const sortedLenders = useMemo(() => {
@@ -121,6 +199,20 @@ export default function Leaderboard({ filters = {}, initialSortKey = 'compositeS
         const order = { 'non-custodial': 1, 'collaborative': 2, 'custodial': 3 };
         aVal = order[aVal] || 4;
         bVal = order[bVal] || 4;
+      }
+      
+      // Handle special sorting for term flexibility
+      if (sortKey === 'termFlexibility') {
+        const order = { open: 1, renewable: 2, fixed: 3 };
+        aVal = order[aVal] || 4;
+        bVal = order[bVal] || 4;
+      }
+      
+      // Handle special sorting for large loan ease
+      if (sortKey === 'largeLoanEase') {
+        const order = { excellent: 1, good: 2, fair: 3, poor: 4, na: 5 };
+        aVal = order[aVal] || 6;
+        bVal = order[bVal] || 6;
       }
       
       // Handle booleans
@@ -215,17 +307,32 @@ export default function Leaderboard({ filters = {}, initialSortKey = 'compositeS
                 const config = attributeConfig[col.key];
                 const isActive = sortKey === col.key;
                 const isPrimary = primaryColumns.some(c => c.key === col.key);
+                const hasFilter = columnFilterOptions[col.key];
                 return (
                   <th 
                     key={col.key}
                     className={`col-${col.key} sortable ${isActive ? 'active' : ''} ${!isPrimary ? 'secondary-col' : ''}`}
-                    onClick={() => handleSort(col.key)}
                     title={config?.description ? `${config.description} — Click to sort.` : 'Click to sort.'}
                   >
-                    <span className="th-label">{config?.label || col.key}</span>
-                    <span className="sort-indicator">
-                      {isActive ? (sortAsc ? '↑' : '↓') : '↕'}
-                    </span>
+                    <div className="th-content">
+                      <span 
+                        className="th-label-wrapper"
+                        onClick={() => handleSort(col.key)}
+                      >
+                        <span className="th-label">{config?.label || col.key}</span>
+                        <span className="sort-indicator">
+                          {isActive ? (sortAsc ? '↑' : '↓') : '↕'}
+                        </span>
+                      </span>
+                      {hasFilter && (
+                        <ColumnFilter
+                          options={columnFilterOptions[col.key]}
+                          value={columnFilters[col.key]}
+                          onChange={(value) => handleColumnFilterChange(col.key, value)}
+                          label={config?.label || col.key}
+                        />
+                      )}
+                    </div>
                   </th>
                 );
               })}

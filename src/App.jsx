@@ -50,9 +50,36 @@ export default function App() {
       <main>
         <Hero 
           onOpenQuiz={() => setIsQuizOpen(true)}
-          lenderCount={19}
+          lenderCount={13}
           attributeCount={15}
         />
+        
+        <section id="about" className="about-section">
+          <div className="container">
+            <div className="about-content">
+              <div className="about-text">
+                <h2>About This Leaderboard</h2>
+                <p>
+                  Built by <a href="https://tahoebtcstrategy.com" target="_blank" rel="noopener noreferrer">Tahoe BTC Strategy</a> to help 
+                  Bitcoiners access liquidity without selling. We believe in transparency and empowering the community 
+                  with accurate, unbiased data on Bitcoin-backed lending options.
+                </p>
+                <p className="about-disclaimer">
+                  This leaderboard is updated regularly to reflect current rates and terms. Always verify directly 
+                  with lenders before borrowing. Not financial advice.
+                </p>
+              </div>
+              <a 
+                href="https://tahoebtcstrategy.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="about-logo-link"
+              >
+                <img src="/logo-on-black.svg" alt="Tahoe BTC Strategy" className="about-logo" />
+              </a>
+            </div>
+          </div>
+        </section>
         
         <section id="leaderboard" className="leaderboard-section">
           <div className="container">
